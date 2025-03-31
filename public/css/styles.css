@@ -1,0 +1,323 @@
+/* Main Styles for Car Rental System */
+
+/* Global Styles */
+body {
+    font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+/* Header & Navigation */
+.navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+/* Hero Banner */
+.hero-banner {
+    position: relative;
+    background-image: url('../images/hero-banner.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 600px;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 30px;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.search-form-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    color: #333;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+    font-weight: 600;
+}
+
+.card-title {
+    font-weight: 600;
+}
+
+/* Car Cards */
+.car-specs .badge {
+    font-weight: normal;
+    padding: 0.5em 0.8em;
+    margin-right: 0.5rem;
+}
+
+.car-price {
+    font-size: 1.2rem;
+    color: #0d6efd;
+    font-weight: 700;
+}
+
+.car-rating i.fa-star, .car-rating i.far.fa-star {
+    color: #ffc107;
+}
+
+/* Category Cards */
+.category-card {
+    overflow: hidden;
+    border: none;
+    border-radius: 10px;
+}
+
+.category-card img {
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover img {
+    transform: scale(1.05);
+}
+
+.category-content {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 15px;
+    border-radius: 0 0 10px 10px;
+    width: 100%;
+}
+
+/* How It Works Section */
+.how-it-works-item {
+    padding: 20px;
+}
+
+.icon-container {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+/* Booking Timeline */
+.booking-timeline {
+    padding: 20px 0;
+}
+
+.timeline-header {
+    padding: 0 20px;
+}
+
+.timeline-point {
+    text-align: center;
+    z-index: 1;
+}
+
+.timeline-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-size: 20px;
+    color: #6c757d;
+}
+
+.timeline-point.active .timeline-icon {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.timeline-label {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.timeline-point.active .timeline-label {
+    color: #0d6efd;
+    font-weight: bold;
+}
+
+.timeline-line {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #e9ecef;
+    z-index: 0;
+}
+
+/* Dashboard Sidebar */
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 60px);
+    padding-top: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.sidebar .nav-link {
+    font-weight: 500;
+    color: #333;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.2rem;
+    border-radius: 5px;
+}
+
+.sidebar .nav-link:hover {
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+.sidebar .nav-link.active {
+    color: #0d6efd;
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+/* Forms */
+.form-label {
+    font-weight: 500;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Ratings */
+.star-label {
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.2s;
+    padding: 0 5px;
+}
+
+.rating-stars {
+    direction: rtl;
+    text-align: center;
+}
+
+.rating-stars .form-check-inline {
+    margin-right: 0;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.btn-primary, .btn-success, .btn-info, .btn-warning, .btn-danger {
+    color: white;
+}
+
+/* Password Strength */
+.password-strength .progress {
+    height: 8px;
+    border-radius: 5px;
+}
+
+/* Footer */
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 50px 0 20px;
+    margin-top: 50px;
+}
+
+footer h5 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+footer a {
+    color: #f8f9fa;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #0d6efd;
+    text-decoration: underline;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .hero-banner {
+        height: 450px;
+    }
+    
+    .card-title {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .hero-banner {
+        height: 400px;
+    }
+}
