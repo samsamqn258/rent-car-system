@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header bg-primary text-white">
+            <div class="card-header" style="background-color: #5fcf86; color: white;">
                     <h3 class="mb-0">Đăng ký tài khoản chủ xe</h3>
                 </div>
                 <div class="card-body">
@@ -33,8 +33,7 @@
                                             <i class="fas fa-eye"></i>
                                         </button>
                                     </div>
-                                    <div class="form-text">Mật khẩu phải có ít nhất 6 ký tự.</div>
-                                </div>
+                                </div> 
                                 
                                 <div class="mb-3">
                                     <label for="password_confirm" class="form-label">Xác nhận mật khẩu</label>
@@ -70,20 +69,6 @@
                         </div>
                         
                         <hr>
-                        
-                        <h5 class="mb-3">Điều khoản và cam kết</h5>
-                        
-                        <div class="alert alert-info">
-                            <h6 class="alert-heading">Thông tin quan trọng cho chủ xe</h6>
-                            <p>Khi đăng ký làm chủ xe, bạn sẽ có thể:</p>
-                            <ul>
-                                <li>Đăng xe của bạn lên hệ thống cho người khác thuê</li>
-                                <li>Quản lý lịch trình cho thuê và xem lịch sử giao dịch</li>
-                                <li>Nhận thanh toán trực tiếp vào tài khoản của bạn</li>
-                                <li>Được hỗ trợ kỹ thuật và hướng dẫn từ đội ngũ của chúng tôi</li>
-                            </ul>
-                        </div>
-                        
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="owner_agreement" name="owner_agreement" required>
                             <label class="form-check-label" for="owner_agreement">
@@ -97,9 +82,8 @@
                                 Tôi đồng ý với <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Điều khoản sử dụng</a> và <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Chính sách bảo mật</a>
                             </label>
                         </div>
-                        
-                        <div class="d-grid gap-2 mt-4">
-                            <button type="submit" class="btn btn-primary btn-lg">Đăng ký làm chủ xe</button>
+                        <div class="d-grid gap-2 mt-4" >
+                             <button type="submit" class="btn btn-primary btn-lg" style="background-color: #5fcf86;">Đăng ký làm chủ xe</button>
                         </div>
                     </form>
                     
@@ -110,34 +94,15 @@
                 </div>
             </div>
             
-            <div class="card mt-4">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Lợi ích khi trở thành chủ xe</h4>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5><i class="fas fa-money-bill-wave text-success me-2"></i> Tạo thu nhập thụ động</h5>
-                            <p>Cho thuê xe khi bạn không sử dụng và tạo thêm nguồn thu nhập hàng tháng.</p>
-                            
-                            <h5><i class="fas fa-shield-alt text-primary me-2"></i> Bảo hiểm đầy đủ</h5>
-                            <p>Xe của bạn được bảo vệ bởi chính sách bảo hiểm toàn diện trong thời gian cho thuê.</p>
-                        </div>
-                        <div class="col-md-6">
-                            <h5><i class="fas fa-chart-line text-info me-2"></i> Quản lý dễ dàng</h5>
-                            <p>Công cụ quản lý trực tuyến giúp theo dõi lịch trình, doanh thu và thống kê đơn giản.</p>
-                            
-                            <h5><i class="fas fa-headset text-warning me-2"></i> Hỗ trợ 24/7</h5>
-                            <p>Đội ngũ hỗ trợ của chúng tôi luôn sẵn sàng giúp đỡ bạn khi cần thiết.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
+    </div>
+</div>
+
         </div>
     </div>
 </div>
 
-<!-- Owner Terms Modal -->
+
 <div class="modal fade" id="ownerTermsModal" tabindex="-1" aria-labelledby="ownerTermsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

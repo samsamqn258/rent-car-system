@@ -1,16 +1,17 @@
 <?php include 'views/shared/header.php'; ?>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">Đăng nhập</h3>
-                </div>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+              <div class="col-md-6">
+                <div class="card">
+                <div class="card-header" style="background-color: #5fcf86; color: white;">
+         <h3 class="mb-0">Đăng nhập</h3>
+        </div>
+
                 <div class="card-body">
                     <form action="<?php echo BASE_URL; ?>/auth/login" method="post">
                         <div class="mb-3">
-                            <label for="username" class="form-label">Tên đăng nhập hoặc Email</label>
+                            <label for="username" class="form-label">Tên đăng nhập</label>
                             <input type="text" class="form-control" id="username" name="username" required autofocus
                                 value="<?php echo isset($_SESSION['form_data']['username']) ? $_SESSION['form_data']['username'] : ''; ?>">
                         </div>
@@ -26,19 +27,18 @@
                         </div>
                         
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                            <button type="submit" class="btn" style="background-color: #5fcf86; color: white; border: none;">Đăng nhập</button>
                         </div>
                     </form>
                     
                     <div class="mt-3 text-center">
                         <p>Chưa có tài khoản? <a href="<?php echo BASE_URL; ?>/auth/register">Đăng ký ngay</a></p>
                         <p>Bạn muốn trở thành chủ xe? <a href="<?php echo BASE_URL; ?>/auth/register_owner">Đăng ký chủ xe</a></p>
-                        <p><a href="<?php echo BASE_URL; ?>/auth/forgot_password">Quên mật khẩu?</a></p>
                     </div>
                 </div>
             </div>
             
-            <div class="card mt-4">
+            <!-- <div class="card mt-4">
                 <div class="card-body">
                     <h5 class="card-title">Lợi ích khi đăng nhập</h5>
                     <ul class="list-group list-group-flush">
@@ -60,7 +60,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
