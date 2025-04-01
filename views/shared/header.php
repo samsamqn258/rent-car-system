@@ -15,7 +15,7 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="height: 86px">
         <div class="container">
             <a class="navbar-brand" href="<?php echo BASE_URL; ?>">
                 <img src="<?php echo BASE_URL; ?>/public/images/logo-full.ea382559.png"
@@ -27,16 +27,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-black" href="<?php echo BASE_URL; ?>">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-black" href="<?php echo BASE_URL; ?>/cars/search">Tìm xe</a>
-                    </li>
                     <?php if (isset($_SESSION['user_id']) && $_SESSION['user_role'] == 'owner'): ?>
                         <li class="nav-item dropdown ">
-                            <a class="nav-link dropdown-toggle text-black" href="#" id="ownerDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle text-black" style="font-size: 1rem; font-weight: 500;" href="#"
+                                id="ownerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Chủ xe
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="ownerDropdown">
@@ -49,8 +43,8 @@
                     <?php endif; ?>
                     <?php if (isset($_SESSION['user_id']) && $_SESSION['user_role'] == 'admin'): ?>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-black" href="#" id="adminDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle text-black" style="font-size: 1rem; font-weight: 500;" href="#"
+                                id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Quản trị
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="adminDropdown">
@@ -63,11 +57,12 @@
                         </li>
                     <?php endif; ?>
                 </ul>
-                <ul class="navbar-nav">
+                <ul class="navbar-nav" style="display: flex
+;align-items: center;">
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-black" href="#" id="userDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle text-black" style="font-size: 1rem; font-weight: 500;" href="#"
+                                id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user-circle me-1"></i>
                                 <?php echo $_SESSION['username']; ?>
                             </a>
@@ -81,15 +76,24 @@
                             </ul>
                         </li>
                     <?php else: ?>
-                        <li class="nav-item ">
-                            <a class="nav-link text-black" href="<?php echo BASE_URL; ?>/auth/register_owner">Trở thành chủ xe</a>
+                        <li class="nav-item" style=" margin-right: 20px">
+                            <a class="nav-link text-black" style="font-size: 1rem; font-weight: 500;"
+                                href="<?php echo BASE_URL; ?>/auth/login">Về chúng tôi</a>
+                        </li>
+                        <li class="nav-item border-end" style="padding-right: 20px; margin-right: 20px">
+                            <a class="nav-link text-black" style="font-size: 1rem; font-weight: 500;"
+                                href="<?php echo BASE_URL; ?>/auth/register_owner">Trở thành chủ xe</a>
+                        </li>
+                        <li class="nav-item" style=" margin-right: 20px">
+                            <a class="nav-link text-black" style="font-size: 1rem; font-weight: 500;"
+                                href="<?php echo BASE_URL; ?>/auth/register">Đăng ký</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-black" href="<?php echo BASE_URL; ?>/auth/login">Đăng nhập</a>
+                            <a class="nav-link text-white"
+                                style="font-size: 1rem;background-color:#5fcf86; font-weight: 500; border-radius: 6px; padding: 12px"
+                                href="<?php echo BASE_URL; ?>/auth/login">Đăng nhập</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-black" href="<?php echo BASE_URL; ?>/auth/register">Đăng ký</a>
-                        </li>
+
 
                     <?php endif; ?>
                 </ul>
