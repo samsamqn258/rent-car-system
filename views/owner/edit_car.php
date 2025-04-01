@@ -20,7 +20,7 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
           <a href="<?php echo BASE_URL; ?>/owner/bookings" class="list-group-item list-group-item-action">
             <i class="fas fa-calendar-alt me-2"></i> Quản lý đơn thuê
           </a>
-          <a href="<?php echo BASE_URL; ?>/owner/revenue" class="list-group-item list-group-item-action">
+          <a href="<?php echo BASE_URL; ?>/owner/revenue?period=week" class="list-group-item list-group-item-action">
             <i class="fas fa-chart-line me-2"></i> Doanh thu
           </a>
         </div>
@@ -60,17 +60,17 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
                 <select class="form-select" id="year" name="year" required>
                   <option value="">Chọn năm</option>
                   <?php
-                                    $current_year = date('Y');
-                                    for ($y = $current_year; $y >= $current_year - 20; $y--) {
-                                        $selected = '';
-                                        if (isset($_SESSION['form_data']['year'])) {
-                                            $selected = ($_SESSION['form_data']['year'] == $y) ? 'selected' : '';
-                                        } else {
-                                            $selected = ($car_details['year'] == $y) ? 'selected' : '';
-                                        }
-                                        echo "<option value=\"$y\" $selected>$y</option>";
-                                    }
-                                    ?>
+                  $current_year = date('Y');
+                  for ($y = $current_year; $y >= $current_year - 20; $y--) {
+                    $selected = '';
+                    if (isset($_SESSION['form_data']['year'])) {
+                      $selected = ($_SESSION['form_data']['year'] == $y) ? 'selected' : '';
+                    } else {
+                      $selected = ($car_details['year'] == $y) ? 'selected' : '';
+                    }
+                    echo "<option value=\"$y\" $selected>$y</option>";
+                  }
+                  ?>
                 </select>
               </div>
               <div class="col-md-4">
@@ -78,22 +78,22 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
                 <select class="form-select" id="car_type" name="car_type" required>
                   <option value="">Chọn loại xe</option>
                   <?php
-                                    $car_types = [
-                                        'electric' => 'Xe điện',
-                                        'gasoline' => 'Xe xăng',
-                                        'diesel' => 'Xe dầu'
-                                    ];
+                  $car_types = [
+                    'electric' => 'Xe điện',
+                    'gasoline' => 'Xe xăng',
+                    'diesel' => 'Xe dầu'
+                  ];
 
-                                    foreach ($car_types as $value => $label) {
-                                        $selected = '';
-                                        if (isset($_SESSION['form_data']['car_type'])) {
-                                            $selected = ($_SESSION['form_data']['car_type'] == $value) ? 'selected' : '';
-                                        } else {
-                                            $selected = ($car_details['car_type'] == $value) ? 'selected' : '';
-                                        }
-                                        echo "<option value=\"$value\" $selected>$label</option>";
-                                    }
-                                    ?>
+                  foreach ($car_types as $value => $label) {
+                    $selected = '';
+                    if (isset($_SESSION['form_data']['car_type'])) {
+                      $selected = ($_SESSION['form_data']['car_type'] == $value) ? 'selected' : '';
+                    } else {
+                      $selected = ($car_details['car_type'] == $value) ? 'selected' : '';
+                    }
+                    echo "<option value=\"$value\" $selected>$label</option>";
+                  }
+                  ?>
                 </select>
               </div>
               <div class="col-md-4">
@@ -101,18 +101,18 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
                 <select class="form-select" id="seats" name="seats" required>
                   <option value="">Chọn số chỗ</option>
                   <?php
-                                    for ($s = 4; $s <= 16; $s++) {
-                                        if ($s % 2 == 0 || $s == 5 || $s == 7) {
-                                            $selected = '';
-                                            if (isset($_SESSION['form_data']['seats'])) {
-                                                $selected = ($_SESSION['form_data']['seats'] == $s) ? 'selected' : '';
-                                            } else {
-                                                $selected = ($car_details['seats'] == $s) ? 'selected' : '';
-                                            }
-                                            echo "<option value=\"$s\" $selected>$s chỗ</option>";
-                                        }
-                                    }
-                                    ?>
+                  for ($s = 4; $s <= 16; $s++) {
+                    if ($s % 2 == 0 || $s == 5 || $s == 7) {
+                      $selected = '';
+                      if (isset($_SESSION['form_data']['seats'])) {
+                        $selected = ($_SESSION['form_data']['seats'] == $s) ? 'selected' : '';
+                      } else {
+                        $selected = ($car_details['seats'] == $s) ? 'selected' : '';
+                      }
+                      echo "<option value=\"$s\" $selected>$s chỗ</option>";
+                    }
+                  }
+                  ?>
                 </select>
               </div>
             </div>
@@ -146,46 +146,46 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
             <div class="mb-3">
               <label class="form-label">Chọn vị trí trên bản đồ</label>
               <?php
-                            // Use existing coordinates
-                            $lat = isset($_SESSION['form_data']['latitude']) ? $_SESSION['form_data']['latitude'] : $car_details['latitude'];
-                            $lng = isset($_SESSION['form_data']['longitude']) ? $_SESSION['form_data']['longitude'] : $car_details['longitude'];
+              // Use existing coordinates
+              $lat = isset($_SESSION['form_data']['latitude']) ? $_SESSION['form_data']['latitude'] : $car_details['latitude'];
+              $lng = isset($_SESSION['form_data']['longitude']) ? $_SESSION['form_data']['longitude'] : $car_details['longitude'];
 
-                            // Generate map with location picker
-                            echo OpenStreetMap::generateMapWithSearch($lat, $lng, 15);
-                            ?>
+              // Generate map with location picker
+              echo OpenStreetMap::generateMapWithSearch($lat, $lng, 15);
+              ?>
             </div>
 
             <!-- Current Images -->
             <h5 class="mt-4 mb-3">Hình ảnh hiện tại</h5>
             <div class="row mb-3">
               <?php if (!empty($car_details['images'])): ?>
-              <?php foreach ($car_details['images'] as $index => $image): ?>
-              <div class="col-md-4 mb-3">
-                <div class="card">
-                  <img src="<?php echo BASE_URL . '/' . $image['image_path']; ?>" class="card-img-top" alt="Car Image"
-                    style="height: 180px; object-fit: cover;">
-                  <div class="card-body">
-                    <?php if ($image['is_primary']): ?>
-                    <span class="badge bg-primary mb-2">Hình ảnh chính</span>
-                    <?php else: ?>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="primary_image"
-                        id="primary_<?php echo $image['id']; ?>" value="<?php echo $image['id']; ?>">
-                      <label class="form-check-label" for="primary_<?php echo $image['id']; ?>">
-                        Đặt làm hình ảnh chính
-                      </label>
+                <?php foreach ($car_details['images'] as $index => $image): ?>
+                  <div class="col-md-4 mb-3">
+                    <div class="card">
+                      <img src="<?php echo BASE_URL . '/' . $image['image_path']; ?>" class="card-img-top" alt="Car Image"
+                        style="height: 180px; object-fit: cover;">
+                      <div class="card-body">
+                        <?php if ($image['is_primary']): ?>
+                          <span class="badge bg-primary mb-2">Hình ảnh chính</span>
+                        <?php else: ?>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="primary_image"
+                              id="primary_<?php echo $image['id']; ?>" value="<?php echo $image['id']; ?>">
+                            <label class="form-check-label" for="primary_<?php echo $image['id']; ?>">
+                              Đặt làm hình ảnh chính
+                            </label>
+                          </div>
+                        <?php endif; ?>
+                      </div>
                     </div>
-                    <?php endif; ?>
+                  </div>
+                <?php endforeach; ?>
+              <?php else: ?>
+                <div class="col-12">
+                  <div class="alert alert-info mb-0">
+                    <i class="fas fa-info-circle me-2"></i> Không có hình ảnh nào cho xe này.
                   </div>
                 </div>
-              </div>
-              <?php endforeach; ?>
-              <?php else: ?>
-              <div class="col-12">
-                <div class="alert alert-info mb-0">
-                  <i class="fas fa-info-circle me-2"></i> Không có hình ảnh nào cho xe này.
-                </div>
-              </div>
               <?php endif; ?>
             </div>
 
@@ -207,23 +207,23 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
               <h6 class="alert-heading"><i class="fas fa-info-circle me-2"></i> Trạng thái xe:</h6>
               <p class="mb-0">
                 <?php
-                                switch ($car_details['status']) {
-                                    case 'approved':
-                                        echo '<span class="badge bg-success">Đã duyệt</span> Xe của bạn đang hiển thị trên hệ thống và có thể được thuê.';
-                                        break;
-                                    case 'unapproved':
-                                        echo '<span class="badge bg-warning text-dark">Chờ duyệt</span> Xe của bạn đang chờ quản trị viên xét duyệt.';
-                                        break;
-                                    case 'rejected':
-                                        echo '<span class="badge bg-danger">Bị từ chối</span> Xe của bạn đã bị từ chối. Vui lòng chỉnh sửa thông tin và gửi lại.';
-                                        break;
-                                    case 'rented':
-                                        echo '<span class="badge bg-primary">Đang cho thuê</span> Xe của bạn hiện đang được thuê.';
-                                        break;
-                                    default:
-                                        echo '<span class="badge bg-secondary">Không xác định</span>';
-                                }
-                                ?>
+                switch ($car_details['status']) {
+                  case 'approved':
+                    echo '<span class="badge bg-success">Đã duyệt</span> Xe của bạn đang hiển thị trên hệ thống và có thể được thuê.';
+                    break;
+                  case 'unapproved':
+                    echo '<span class="badge bg-warning text-dark">Chờ duyệt</span> Xe của bạn đang chờ quản trị viên xét duyệt.';
+                    break;
+                  case 'rejected':
+                    echo '<span class="badge bg-danger">Bị từ chối</span> Xe của bạn đã bị từ chối. Vui lòng chỉnh sửa thông tin và gửi lại.';
+                    break;
+                  case 'rented':
+                    echo '<span class="badge bg-primary">Đang cho thuê</span> Xe của bạn hiện đang được thuê.';
+                    break;
+                  default:
+                    echo '<span class="badge bg-secondary">Không xác định</span>';
+                }
+                ?>
               </p>
             </div>
 
@@ -239,78 +239,78 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Image preview functionality
-  const imageInput = document.getElementById('car_images');
-  const imagePreview = document.getElementById('imagePreview');
+  document.addEventListener('DOMContentLoaded', function() {
+    // Image preview functionality
+    const imageInput = document.getElementById('car_images');
+    const imagePreview = document.getElementById('imagePreview');
 
-  imageInput.addEventListener('change', function() {
-    imagePreview.innerHTML = '';
+    imageInput.addEventListener('change', function() {
+      imagePreview.innerHTML = '';
 
-    if (this.files.length > 5) {
-      alert('Bạn chỉ có thể tải lên tối đa 5 hình ảnh.');
-      this.value = '';
-      return;
-    }
-
-    for (let i = 0; i < this.files.length; i++) {
-      const file = this.files[i];
-
-      // Check file size
-      if (file.size > 5 * 1024 * 1024) {
-        alert('Hình ảnh ' + file.name + ' vượt quá kích thước tối đa (5MB).');
+      if (this.files.length > 5) {
+        alert('Bạn chỉ có thể tải lên tối đa 5 hình ảnh.');
         this.value = '';
-        imagePreview.innerHTML = '';
         return;
       }
 
-      // Check file type
-      if (!file.type.match('image/(jpeg|jpg|png)')) {
-        alert('Hình ảnh ' + file.name + ' không đúng định dạng. Chỉ hỗ trợ JPG, JPEG và PNG.');
-        this.value = '';
-        imagePreview.innerHTML = '';
-        return;
+      for (let i = 0; i < this.files.length; i++) {
+        const file = this.files[i];
+
+        // Check file size
+        if (file.size > 5 * 1024 * 1024) {
+          alert('Hình ảnh ' + file.name + ' vượt quá kích thước tối đa (5MB).');
+          this.value = '';
+          imagePreview.innerHTML = '';
+          return;
+        }
+
+        // Check file type
+        if (!file.type.match('image/(jpeg|jpg|png)')) {
+          alert('Hình ảnh ' + file.name + ' không đúng định dạng. Chỉ hỗ trợ JPG, JPEG và PNG.');
+          this.value = '';
+          imagePreview.innerHTML = '';
+          return;
+        }
+
+        // Create preview
+        const col = document.createElement('div');
+        col.className = 'col-md-4 mb-3';
+
+        const card = document.createElement('div');
+        card.className = 'card h-100';
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.className = 'card-img-top';
+          img.style.height = '180px';
+          img.style.objectFit = 'cover';
+          card.appendChild(img);
+
+          const cardBody = document.createElement('div');
+          cardBody.className = 'card-body';
+
+          const fileName = document.createElement('p');
+          fileName.className = 'card-text small text-muted mb-0';
+          fileName.textContent = file.name;
+          cardBody.appendChild(fileName);
+
+          card.appendChild(cardBody);
+        };
+
+        reader.readAsDataURL(file);
+        col.appendChild(card);
+        imagePreview.appendChild(col);
       }
-
-      // Create preview
-      const col = document.createElement('div');
-      col.className = 'col-md-4 mb-3';
-
-      const card = document.createElement('div');
-      card.className = 'card h-100';
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = document.createElement('img');
-        img.src = e.target.result;
-        img.className = 'card-img-top';
-        img.style.height = '180px';
-        img.style.objectFit = 'cover';
-        card.appendChild(img);
-
-        const cardBody = document.createElement('div');
-        cardBody.className = 'card-body';
-
-        const fileName = document.createElement('p');
-        fileName.className = 'card-text small text-muted mb-0';
-        fileName.textContent = file.name;
-        cardBody.appendChild(fileName);
-
-        card.appendChild(cardBody);
-      };
-
-      reader.readAsDataURL(file);
-      col.appendChild(card);
-      imagePreview.appendChild(col);
-    }
+    });
   });
-});
 </script>
 
 <?php
 // Clear form data from session
 if (isset($_SESSION['form_data'])) {
-    unset($_SESSION['form_data']);
+  unset($_SESSION['form_data']);
 }
 ?>
 

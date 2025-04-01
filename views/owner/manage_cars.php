@@ -18,7 +18,7 @@
                     <a href="<?php echo BASE_URL; ?>/owner/bookings" class="list-group-item list-group-item-action">
                         <i class="fas fa-calendar-alt me-2"></i> Quản lý đơn thuê
                     </a>
-                    <a href="<?php echo BASE_URL; ?>/owner/revenue" class="list-group-item list-group-item-action">
+                    <a href="<?php echo BASE_URL; ?>/owner/revenue?period=week" class="list-group-item list-group-item-action">
                         <i class="fas fa-chart-line me-2"></i> Doanh thu
                     </a>
                 </div>
@@ -68,13 +68,14 @@
                         <div class="col-md-6 mb-4 car-item" data-status="<?php echo $car['status']; ?>">
                             <div class="card h-100">
                                 <div class="position-relative">
-                                    <img src="<?php echo BASE_URL . '/' . $car['primary_image']; ?>" class="card-img-top" alt="<?php echo $car['brand'] . ' ' . $car['model']; ?>" style="height: 180px; object-fit: cover;">
-                                    
+                                    <img src="<?php echo BASE_URL . '/' . $car['primary_image']; ?>" class="card-img-top"
+                                        alt="<?php echo $car['brand'] . ' ' . $car['model']; ?>" style="height: 180px; object-fit: cover;">
+
                                     <!-- Status Badge -->
-                                    <?php 
+                                    <?php
                                     $status_class = '';
                                     $status_text = '';
-                                    
+
                                     switch ($car['status']) {
                                         case 'available':
                                             $status_class = 'bg-success';
@@ -102,10 +103,10 @@
                                         <?php echo $status_text; ?>
                                     </span>
                                 </div>
-                                
+
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $car['brand'] . ' ' . $car['model'] . ' (' . $car['year'] . ')'; ?></h5>
-                                    
+
                                     <div class="car-specs mb-2">
                                         <span class="badge bg-secondary me-1">
                                             <i class="fas fa-gas-pump me-1"></i>
@@ -116,7 +117,7 @@
                                             <?php echo $car['seats']; ?> chỗ
                                         </span>
                                     </div>
-                                    
+
                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                         <div class="car-price text-primary fw-bold">
                                             <?php echo number_format($car['price_per_day'], 0, ',', '.'); ?> VND/ngày
@@ -127,27 +128,31 @@
                                             <small class="text-muted">(<?php echo $car['review_count']; ?>)</small>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="d-flex justify-content-between align-items-center">
                                         <small class="text-muted">Đăng ngày: <?php echo date('d/m/Y', strtotime($car['created_at'])); ?></small>
                                     </div>
                                 </div>
-                                
+
                                 <div class="card-footer bg-white">
                                     <div class="d-flex justify-content-between">
-                                        <a href="<?php echo BASE_URL; ?>/cars/details/<?php echo $car['id']; ?>" class="btn btn-sm btn-outline-primary">
+                                        <a href="<?php echo BASE_URL; ?>/cars/details/<?php echo $car['id']; ?>"
+                                            class="btn btn-sm btn-outline-primary">
                                             <i class="fas fa-eye me-1"></i> Xem
                                         </a>
-                                        <a href="<?php echo BASE_URL; ?>/cars/edit/<?php echo $car['id']; ?>" class="btn btn-sm btn-outline-secondary">
+                                        <a href="<?php echo BASE_URL; ?>/cars/edit/<?php echo $car['id']; ?>"
+                                            class="btn btn-sm btn-outline-secondary">
                                             <i class="fas fa-edit me-1"></i> Sửa
                                         </a>
                                         <?php if ($car['status'] == 'rejected'): ?>
-                                            <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#rejectionReason<?php echo $car['id']; ?>">
+                                            <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal"
+                                                data-bs-target="#rejectionReason<?php echo $car['id']; ?>">
                                                 <i class="fas fa-info-circle me-1"></i> Lý do
                                             </button>
-                                            
+
                                             <!-- Rejection Reason Modal -->
-                                            <div class="modal fade" id="rejectionReason<?php echo $car['id']; ?>" tabindex="-1" aria-labelledby="rejectionReasonLabel<?php echo $car['id']; ?>" aria-hidden="true">
+                                            <div class="modal fade" id="rejectionReason<?php echo $car['id']; ?>" tabindex="-1"
+                                                aria-labelledby="rejectionReasonLabel<?php echo $car['id']; ?>" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -163,7 +168,8 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                            <a href="<?php echo BASE_URL; ?>/cars/edit/<?php echo $car['id']; ?>" class="btn btn-primary">Chỉnh sửa xe</a>
+                                                            <a href="<?php echo BASE_URL; ?>/cars/edit/<?php echo $car['id']; ?>"
+                                                                class="btn btn-primary">Chỉnh sửa xe</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -181,25 +187,25 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Status filter functionality
-    const statusFilter = document.getElementById('statusFilter');
-    const carItems = document.querySelectorAll('.car-item');
-    
-    statusFilter.addEventListener('change', function() {
-        const selectedStatus = this.value;
-        
-        carItems.forEach(item => {
-            const carStatus = item.dataset.status;
-            
-            if (selectedStatus === 'all' || selectedStatus === carStatus) {
-                item.style.display = '';
-            } else {
-                item.style.display = 'none';
-            }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Status filter functionality
+        const statusFilter = document.getElementById('statusFilter');
+        const carItems = document.querySelectorAll('.car-item');
+
+        statusFilter.addEventListener('change', function() {
+            const selectedStatus = this.value;
+
+            carItems.forEach(item => {
+                const carStatus = item.dataset.status;
+
+                if (selectedStatus === 'all' || selectedStatus === carStatus) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         });
     });
-});
 </script>
 
 <?php include 'views/shared/footer.php'; ?>

@@ -18,7 +18,8 @@
           <a href="<?php echo BASE_URL; ?>/owner/bookings" class="list-group-item list-group-item-action">
             <i class="fas fa-calendar-alt me-2"></i> Quản lý đơn thuê
           </a>
-          <a href="<?php echo BASE_URL; ?>/owner/revenue" class="list-group-item list-group-item-action active">
+          <a href="<?php echo BASE_URL; ?>/owner/revenue?period=week"
+            class="list-group-item list-group-item-action active">
             <i class="fas fa-chart-line me-2"></i> Doanh thu
           </a>
         </div>
@@ -38,9 +39,8 @@
             </div>
             <div class="d-flex">
               <select class="form-select me-2" id="periodFilter">
-                <option value="day" <?php echo $period == 'day' ? 'selected' : ''; ?>>Hôm nay</option>
+                <option value="day" selected <?php echo $period == 'day' ? 'selected' : ''; ?>>Hôm nay</option>
                 <option value="week" <?php echo $period == 'week' ? 'selected' : ''; ?>>Tuần này</option>
-                <option value="month" <?php echo $period == 'month' ? 'selected' : ''; ?>>Tháng này</option>
                 <option value="year" <?php echo $period == 'year' ? 'selected' : ''; ?>>Năm nay</option>
               </select>
               <select class="form-select" id="yearFilter">
@@ -65,7 +65,8 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div>
                   <h6 class="card-title">Tổng doanh thu</h6>
-                  <h2 class="mb-0"><?php echo number_format($statistics['total_revenue'], 0, ',', '.'); ?> VND</h2>
+
+                  <h2 class="mb-0"><?php echo number_format($statistics['total_revenue'] ?? 0, 0, ',', '.'); ?> VND</h2>
                 </div>
                 <i class="fas fa-money-bill-wave fa-2x"></i>
               </div>
