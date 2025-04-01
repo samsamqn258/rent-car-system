@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header text-white"style="background-color: #5fcf86"> 
                     <h3 class="mb-0">Đăng ký tài khoản</h3>
                 </div>
                 <div class="card-body">
@@ -67,7 +67,7 @@
                         </div>
                         
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Đăng ký</button>
+                            <button type="submit" class="btn btn-primary" style="background-color: #5fcf86;">Đăng ký</button>
                         </div>
                     </form>
                     
