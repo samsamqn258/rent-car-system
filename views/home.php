@@ -70,17 +70,19 @@
           <h5 class="card-title"><?php echo $car['brand'] . ' ' . $car['model'] . ' (' . $car['year'] . ')'; ?></h5>
 
           <div class="car-rating mb-2">
-            <?php
-                            $rating = $car['avg_rating'] ? round($car['avg_rating']) : 0;
-                            for ($i = 1; $i <= 5; $i++) {
-                                if ($i <= $rating) {
-                                    echo '<i class="fas fa-star text-warning"></i>';
-                                } else {
-                                    echo '<i class="far fa-star text-warning"></i>';
-                                }
-                            }
-                            echo ' <span class="text-muted">(' . $car['review_count'] . ')</span>';
-                            ?>
+              <?php
+              $rating = ($car['review_count'] == 0) ? 5 : round($car['avg_rating']);
+              
+              for ($i = 1; $i <= 5; $i++) {
+                  if ($i <= $rating) {
+                      echo '<i class="fas fa-star text-warning"></i>';
+                  } else {
+                      echo '<i class="far fa-star text-warning"></i>';
+                  }
+              }
+
+              echo ' <span class="text-muted">(' . $car['review_count'] . ')</span>';
+              ?>
           </div>
 
           <div class="car-price text-primary fw-bold mb-2">
