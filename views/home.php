@@ -115,7 +115,8 @@
 
   <div class="row">
     <?php foreach ($featured_cars as $car): ?>
-      <div class="col-md-3 mb-4">
+
+      <a href="<?php echo BASE_URL; ?>/cars/details/<?php echo $car['id']; ?>" class="card-car col-md-3 mb-4">
         <div class="card h-100">
           <img src="<?php echo BASE_URL . '/' . $car['primary_image']; ?>" class="card-img-top"
             alt="<?php echo $car['brand'] . ' ' . $car['model']; ?>"
@@ -137,9 +138,16 @@
                 <?php echo $car['seats']; ?> chỗ
               </span>
             </div>
+
+            <div style="color: #767676; font-size: 0.875rem; margin-top: 10px;">
+              <img src="https://cdn0.iconfinder.com/data/icons/4web-3/139/location-512.png"
+                style="width:16px; height: 16px" />
+              <?php echo $car['address']; ?>
+
+            </div>
           </div>
 
-          <div class="card-footer">
+          <div class=" card-footer">
             <div class="d-flex align-items-center justify-content-between">
               <div class="car-rating d-flex align-items-center">
                 <i class="fas fa-star text-warning"></i>
@@ -151,13 +159,10 @@
               <div class="car-price fw-bold " style="color: #5fcf86">
                 <?php echo number_format($car['price_per_day'], 0, ',', '.'); ?> VND/ngày
               </div>
-              <!-- <a href="<?php echo BASE_URL; ?>/cars/details/<?php echo $car['id']; ?>" class="btn btn-primary">
-                Xem chi tiết
-              </a> -->
             </div>
           </div>
         </div>
-      </div>
+      </a>
     <?php endforeach; ?>
   </div>
 </div>
@@ -314,7 +319,8 @@
         <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Đăng ký dễ dàng</li>
         <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Được bảo vệ bởi các chính sách đảm bảo</li>
       </ul>
-      <a href="<?php echo BASE_URL; ?>/auth/register_owner" class="btn h-100 text-white fw-bold" style="background-color: #5fcf86; width: 100%">Đăng ký làm chủ xe</a>
+      <a href="<?php echo BASE_URL; ?>/auth/register_owner" class="btn h-100 text-white fw-bold"
+        style="background-color: #5fcf86; width: 100%">Đăng ký làm chủ xe</a>
     </div>
     <div class="col-md-6">
       <img src="<?php echo BASE_URL; ?>/public/images/pngtree-cab-online-ordering-process-picture-image_8710879.png"
@@ -397,6 +403,11 @@
   .promotions {
     margin-top: 100px;
     padding-top: 80px;
+  }
+
+  .card-car {
+    color: #000;
+    text-decoration: none;
   }
 
   .category-card {
