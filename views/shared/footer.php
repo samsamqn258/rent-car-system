@@ -4,7 +4,8 @@
         <div class="row">
             <div class="col-md-4 mb-4 mb-md-0">
                 <h5 class="mb-3">Về chúng tôi</h5>
-                <p>Nền tảng thuê xe tự lái kết nối chủ xe và khách hàng, giúp bạn dễ dàng thuê xe ô tô tự lái với quy trình đơn giản, nhanh chóng và an toàn.</p>
+                <p>Nền tảng thuê xe tự lái kết nối chủ xe và khách hàng, giúp bạn dễ dàng thuê xe ô tô tự lái với quy trình đơn
+                    giản, nhanh chóng và an toàn.</p>
                 <div class="social-links mt-3">
                     <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
@@ -25,7 +26,8 @@
             <div class="col-md-3 mb-4 mb-md-0">
                 <h5 class="mb-3">Đăng ký xe</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="<?php echo BASE_URL; ?>/auth/register_owner" class="text-white">Đăng ký làm chủ xe</a></li>
+                    <li class="mb-2"><a href="<?php echo BASE_URL; ?>/auth/register_owner" class="text-white">Đăng ký làm chủ
+                            xe</a></li>
                     <li class="mb-2"><a href="#" class="text-white">Quy trình đăng ký xe</a></li>
                     <li class="mb-2"><a href="#" class="text-white">Câu hỏi thường gặp</a></li>
                     <li class="mb-2"><a href="#" class="text-white">Chính sách chủ xe</a></li>
