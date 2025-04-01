@@ -66,6 +66,29 @@ class BookingService
         return $booking_details;
     }
 
+    public function checkUserDriversLicense($userId) {
+        // Giả sử bạn đã có một bảng `users` chứa thông tin người dùng
+        $user = $this->getUserById($userId);
+        
+        // Kiểm tra xem người dùng có giấy phép lái xe không
+        if (empty($user['license'])) {
+            return false; // Người dùng chưa có giấy phép lái xe
+        }
+        
+        return true; // Người dùng đã có giấy phép lái xe
+    }
+
+    // Phương thức lấy thông tin người dùng từ cơ sở dữ liệu (Giả sử bạn đã có phương thức này)
+    private function getUserById($userId) {
+        // Lấy thông tin người dùng từ cơ sở dữ liệu
+        // Bạn có thể thay đổi phần này tùy theo cách kết nối DB của bạn
+        $query = "SELECT * FROM users WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     // Get user bookings history
     public function getUserBookings($user_id)
     {

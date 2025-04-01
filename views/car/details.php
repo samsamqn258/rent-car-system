@@ -67,9 +67,37 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
       </div>
 
       <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] != $car_details['owner_id']): ?>
-      <a href="<?php echo BASE_URL . '/booking/create/' . $car_details['id']; ?>"
-        class="btn btn-primary btn-lg w-100 mb-3">Đặt xe ngay</a>
-      <?php elseif (!isset($_SESSION['user_id'])): ?>
+        <?php
+          $userId = $_SESSION['user_id'];
+          $hasLicense = $this->bookingService->checkUserDriversLicense($userId);
+        ?>
+        <?php if ($hasLicense): ?>
+          <a href="<?php echo BASE_URL . '/booking/create/' . $car_details['id']; ?>" class="btn btn-primary btn-lg w-100 mb-3">Đặt xe ngay</a>
+        <?php else: ?>
+          <button type="button" class="btn btn-primary btn-lg w-100 mb-3" data-bs-toggle="modal" data-bs-target="#licenseModal">
+            Đặt xe ngay
+          </button>
+
+          <!-- Modal yêu cầu cập nhật giấy phép lái xe -->
+          <div class="modal fade" id="licenseModal" tabindex="-1" aria-labelledby="licenseModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="licenseModalLabel">Cập nhật thông tin</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Bạn chưa cập nhật giấy phép lái xe. Vui lòng cập nhật thông tin của bạn để có thể đặt xe.
+                </div>
+                <div class="modal-footer">
+                  <a href="<?php echo BASE_URL . '/user/profile'; ?>" class="btn btn-primary">Cập nhật thông tin</a>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <?php endif; ?>
+        <?php elseif (!isset($_SESSION['user_id'])): ?>
       <a href="<?php echo BASE_URL . '/auth/login'; ?>" class="btn btn-primary btn-lg w-100 mb-3">Đăng nhập để đặt
         xe</a>
       <?php endif; ?>

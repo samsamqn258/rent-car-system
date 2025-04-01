@@ -73,6 +73,16 @@
 
                         <div class="row mb-3">
                             <div class="col-md-6">
+                                <label for="license" class="form-label">Số giấy phép lái xe</label>
+                                <input type="text" class="form-control <?php echo empty($user['license']) ? 'border-danger' : ''; ?>" id="license" name="license" value="<?php echo isset($user['license']) ? $user['license'] : ''; ?>" required>
+                                <?php if (empty($user['license'])): ?>
+                                    <div class="text-danger mt-2">Hãy cập nhật giấy phép lái xe</div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
                                 <label for="role" class="form-label">Vai trò</label>
                                 <input type="text" class="form-control" id="role" value="<?php echo $user['role'] == 'admin' ? 'Quản trị viên' : ($user['role'] == 'owner' ? 'Chủ xe' : 'Người dùng thường'); ?>" readonly disabled>
                             </div>

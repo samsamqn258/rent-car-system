@@ -121,17 +121,9 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
                         </div>
 
                         <!-- Map for location selection -->
-                        <div class="mb-3">
-                            <label class="form-label">Chọn vị trí trên bản đồ</label>
-                            <?php
-                            // Default coordinates (e.g., Ho Chi Minh City center)
-                            $default_lat = isset($_SESSION['form_data']['latitude']) ? $_SESSION['form_data']['latitude'] : 10.762622;
-                            $default_lng = isset($_SESSION['form_data']['longitude']) ? $_SESSION['form_data']['longitude'] : 106.660172;
-
-                            // Generate map with location picker
-                            echo OpenStreetMap::generateMapWithSearch($default_lat, $default_lng, 15);
-                            ?>
-                        </div>
+                        <!-- Ẩn input để lưu tọa độ -->
+                        <input type="hidden" id="latitude" name="latitude">
+                        <input type="hidden" id="longitude" name="longitude">
 
                         <!-- Images -->
                         <h5 class="mt-4 mb-3">Hình ảnh xe</h5>
@@ -247,6 +239,22 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
             }
         });
     });
+    document.getElementById('address').addEventListener('change', function() {
+    var address = this.value;
+    var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address);
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                document.getElementById('latitude').value = data[0].lat;
+                document.getElementById('longitude').value = data[0].lon;
+            } else {
+                alert('Không tìm thấy vị trí. Vui lòng nhập lại địa chỉ.');
+            }
+        })
+        .catch(error => console.error('Lỗi:', error));
+});
 </script>
 
 <?php
