@@ -137,6 +137,7 @@
                 <?php echo $car['seats']; ?> chỗ
               </span>
             </div>
+
           </div>
 
           <div class="card-footer">

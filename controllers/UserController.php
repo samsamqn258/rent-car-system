@@ -38,7 +38,7 @@ class UserController {
     // Update user profile
     public function updateProfile() {
         // Validate required fields
-        $required_fields = ['fullname', 'phone', 'address'];
+        $required_fields = ['fullname', 'phone', 'address', 'license'];
         $validation_errors = $this->validator->validateRequired($_POST, $required_fields);
         
         // Validate phone number
@@ -58,6 +58,7 @@ class UserController {
         $this->user->fullname = $_POST['fullname'];
         $this->user->phone = $_POST['phone'];
         $this->user->address = $_POST['address'];
+        $this->user->license = $_POST['license'];
         
         if ($this->user->update()) {
             // Update session data
