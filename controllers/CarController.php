@@ -1,16 +1,17 @@
 <?php
 require_once 'services/CarService.php';
 require_once 'utils/Validator.php';
-
+require_once 'services/BookingService.php';
 class CarController
 {
     private $carService;
     private $validator;
-
+    private $bookingService;
     public function __construct($db)
     {
         $this->carService = new CarService($db);
         $this->validator = new Validator();
+        $this->bookingService = new BookingService($db);
     }
 
     // Display car search page

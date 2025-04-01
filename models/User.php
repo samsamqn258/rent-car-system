@@ -11,6 +11,7 @@ class User {
     public $fullname;
     public $phone;
     public $address;
+    public $license;
     public $role;
     public $status;
     public $created_at;
@@ -126,6 +127,7 @@ class User {
                     fullname = :fullname,
                     phone = :phone,
                     address = :address,
+                    license = :license,
                     updated_at = NOW()
                 WHERE
                     id = :id";
@@ -139,6 +141,7 @@ class User {
         $stmt->bindParam(':fullname', $this->fullname);
         $stmt->bindParam(':phone', $this->phone);
         $stmt->bindParam(':address', $this->address);
+        $stmt->bindParam(':license', $this->license);
         $stmt->bindParam(':id', $this->id);
         
         if($stmt->execute()) {
