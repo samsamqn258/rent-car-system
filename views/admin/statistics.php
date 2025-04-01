@@ -17,6 +17,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/bookings">
+                            <i class="fas fa-users me-2"></i> Quản lý đơn thuê
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/cars">
                             <i class="fas fa-car me-2"></i> Quản lý xe
                         </a>
@@ -27,7 +32,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="<?php echo BASE_URL; ?>/admin/statistics?period=week">
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/statistics?period=week">
                             <i class="fas fa-chart-bar me-2"></i> Thống kê doanh thu
                         </a>
                     </li>

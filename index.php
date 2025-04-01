@@ -212,48 +212,59 @@ switch ($controller_name) {
         }
         break;
 
-    case 'admin':
-        require_once 'controllers/AdminController.php';
-        $controller = new AdminController($db);
-
-        switch ($action) {
-            case 'dashboard':
-                $controller->dashboard();
-                break;
-            case 'users':
-                $controller->manageUsers();
-                break;
-            case 'cars':
-                $controller->manageCars();
-                break;
-            case 'promotions':
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    if ($param == 'add') {
-                        $controller->addPromotion();
-                    } else if ($param == 'edit') {
-                        $controller->updatePromotion($param2);
-                    } else if ($param == 'delete') {
-                        $controller->deletePromotion($param2);
+        case 'admin':
+            require_once 'controllers/AdminController.php';
+            $controller = new AdminController($db);
+    
+            switch ($action) {
+                case 'dashboard':
+                    $controller->dashboard();
+                    break;
+                case 'users':
+                    $controller->manageUsers();
+                    break;
+                case 'cars':
+                    $controller->manageCars();
+                    break;
+                case 'promotions':
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        if ($param == 'add') {
+                            $controller->addPromotion();
+                        } else if ($param == 'edit') {
+                            $controller->updatePromotion($param2);
+                        } else if ($param == 'delete') {
+                            $controller->deletePromotion($param2);
+                        }
+                    } else {
+                        // Handle GET request
+                        if ($param == 'add') {
+                            $controller->showAddPromotionForm();
+                        } else if ($param == 'edit') {
+                            $controller->showEditPromotionForm($param2);
+                        } else {
+                            $controller->managePromotions();
+                        }
                     }
-                } else {
-                    $controller->managePromotions();
-                }
-                break;
-            case 'statistics':
-                $controller->viewStatistics();
-                break;
-            case 'block_user':
-                $controller->blockUser($param);
-                break;
-            case 'unblock_user':
-                $controller->unblockUser($param);
-                break;
-            default:
-                http_response_code(404);
-                echo "Page not found";
-                break;
-        }
-        break;
+                    break;
+    
+                case 'statistics':
+                    $controller->viewStatistics();
+                    break;
+                case 'block_user':
+                    $controller->blockUser($param);
+                    break;
+                case 'unblock_user':
+                    $controller->unblockUser($param);
+                    break;
+                case 'bookings':
+                    $controller->manageBookings();
+                    break;
+                default:
+                    http_response_code(404);
+                    echo "Page not found";
+                    break;
+            }
+            break;
 
     case 'payment':
         require_once 'controllers/PaymentController.php';

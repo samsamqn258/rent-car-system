@@ -50,6 +50,7 @@
             <ul class="dropdown-menu" aria-labelledby="adminDropdown">
               <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/admin/dashboard">Bảng điều khiển</a></li>
               <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/admin/users">Quản lý người dùng</a></li>
+              <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/admin/users">Quản lý đơn thuê</a></li>
               <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/admin/cars">Quản lý xe</a></li>
               <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/admin/promotions">Quản lý khuyến mãi</a></li>
               <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/admin/statistics?period=week">Thống kê doanh

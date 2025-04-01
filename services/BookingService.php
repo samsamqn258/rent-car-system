@@ -65,7 +65,19 @@ class BookingService
 
         return $booking_details;
     }
+    public function getAllPaidBookings()
+    {
+        $query = "SELECT b.*, c.brand AS car_brand, c.model AS car_model, 
+                     u.fullname AS owner_name
+              FROM bookings b
+              LEFT JOIN cars c ON b.car_id = c.id
+              LEFT JOIN users u ON c.owner_id = u.id
+              WHERE b.payment_status = 'paid'";
 
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function checkUserDriversLicense($userId) {
         // Giả sử bạn đã có một bảng `users` chứa thông tin người dùng
         $user = $this->getUserById($userId);

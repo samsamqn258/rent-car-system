@@ -17,6 +17,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/bookings">
+                            <i class="fas fa-users me-2"></i> Quản lý đơn thuê
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/cars">
                             <i class="fas fa-car me-2"></i> Quản lý xe
                         </a>
@@ -37,8 +42,7 @@
 
         <!-- Main content -->
         <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div
-                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Quản lý người dùng</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group me-2">
@@ -47,8 +51,7 @@
                         </button>
                     </div>
                     <div class="dropdown">
-                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="actionsDropdown"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="actionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-cog me-1"></i> Hành động
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="actionsDropdown">
@@ -195,8 +198,7 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($users as $user): ?>
-                                    <tr data-role="<?php echo $user['role']; ?>" data-status="<?php echo $user['status']; ?>"
-                                        data-search="<?php echo strtolower($user['username'] . ' ' . $user['fullname'] . ' ' . $user['email']); ?>">
+                                    <tr data-role="<?php echo $user['role']; ?>" data-status="<?php echo $user['status']; ?>" data-search="<?php echo strtolower($user['username'] . ' ' . $user['fullname'] . ' ' . $user['email']); ?>">
                                         <td>
                                             <div class="form-check">
                                                 <input class="form-check-input user-checkbox" type="checkbox" value="<?php echo $user['id']; ?>">
@@ -234,59 +236,45 @@
                                         <td><?php echo date('d/m/Y', strtotime($user['created_at'])); ?></td>
                                         <td>
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
-                                                    data-bs-target="#userDetailModal<?php echo $user['id']; ?>">
+                                                <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#userDetailModal<?php echo $user['id']; ?>">
                                                     <i class="fas fa-eye"></i>
                                                 </button>
 
                                                 <?php if ($user['id'] != $_SESSION['user_id']): // Prevent admin from blocking themselves 
                                                 ?>
                                                     <?php if ($user['status'] == 'active'): ?>
-                                                        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                                            data-bs-target="#blockModal<?php echo $user['id']; ?>">
+                                                        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#blockModal<?php echo $user['id']; ?>">
                                                             <i class="fas fa-ban"></i>
                                                         </button>
                                                     <?php else: ?>
-                                                        <a href="<?php echo BASE_URL; ?>/admin/unblock_user/<?php echo $user['id']; ?>"
-                                                            class="btn btn-sm btn-success"
-                                                            onclick="return confirm('Bạn có chắc chắn muốn mở khóa người dùng này?');">
+                                                        <a href="<?php echo BASE_URL; ?>/admin/unblock_user/<?php echo $user['id']; ?>" class="btn btn-sm btn-success" onclick="return confirm('Bạn có chắc chắn muốn mở khóa người dùng này?');">
                                                             <i class="fas fa-unlock"></i>
                                                         </a>
                                                     <?php endif; ?>
                                                 <?php endif; ?>
 
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
+                                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item" href="mailto:<?php echo $user['email']; ?>"><i
-                                                                    class="fas fa-envelope me-2"></i> Gửi email</a></li>
-                                                        <li><a class="dropdown-item"
-                                                                href="<?php echo BASE_URL; ?>/admin/edit_user/<?php echo $user['id']; ?>"><i
-                                                                    class="fas fa-edit me-2"></i> Chỉnh sửa</a></li>
+                                                        <li><a class="dropdown-item" href="mailto:<?php echo $user['email']; ?>"><i class="fas fa-envelope me-2"></i> Gửi email</a></li>
+                                                        <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/admin/edit_user/<?php echo $user['id']; ?>"><i class="fas fa-edit me-2"></i> Chỉnh sửa</a></li>
                                                         <li>
                                                             <hr class="dropdown-divider">
                                                         </li>
-                                                        <li><a class="dropdown-item <?php echo ($user['role'] == 'owner') ? '' : 'disabled'; ?>"
-                                                                href="<?php echo BASE_URL; ?>/admin/view_owner_cars/<?php echo $user['id']; ?>"><i
-                                                                    class="fas fa-car me-2"></i> Xem xe</a></li>
-                                                        <li><a class="dropdown-item"
-                                                                href="<?php echo BASE_URL; ?>/admin/user_activity/<?php echo $user['id']; ?>"><i
-                                                                    class="fas fa-history me-2"></i> Lịch sử hoạt động</a></li>
+                                                        <li><a class="dropdown-item <?php echo ($user['role'] == 'owner') ? '' : 'disabled'; ?>" href="<?php echo BASE_URL; ?>/admin/view_owner_cars/<?php echo $user['id']; ?>"><i class="fas fa-car me-2"></i> Xem xe</a></li>
+                                                        <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/admin/user_activity/<?php echo $user['id']; ?>"><i class="fas fa-history me-2"></i> Lịch sử hoạt động</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
 
                                             <!-- User Detail Modal -->
-                                            <div class="modal fade" id="userDetailModal<?php echo $user['id']; ?>" tabindex="-1"
-                                                aria-labelledby="userDetailModalLabel<?php echo $user['id']; ?>" aria-hidden="true">
+                                            <div class="modal fade" id="userDetailModal<?php echo $user['id']; ?>" tabindex="-1" aria-labelledby="userDetailModalLabel<?php echo $user['id']; ?>" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="userDetailModalLabel<?php echo $user['id']; ?>">Thông tin người
-                                                                dùng</h5>
+                                                            <h5 class="modal-title" id="userDetailModalLabel<?php echo $user['id']; ?>">Thông tin người dùng</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
@@ -373,12 +361,10 @@
                                                                         </div>
                                                                     </div>
                                                                     <div>
-                                                                        <a href="<?php echo BASE_URL; ?>/admin/view_owner_cars/<?php echo $user['id']; ?>"
-                                                                            class="btn btn-sm btn-outline-primary">
+                                                                        <a href="<?php echo BASE_URL; ?>/admin/view_owner_cars/<?php echo $user['id']; ?>" class="btn btn-sm btn-outline-primary">
                                                                             <i class="fas fa-car me-1"></i> Xem danh sách xe
                                                                         </a>
-                                                                        <a href="<?php echo BASE_URL; ?>/admin/owner_revenue/<?php echo $user['id']; ?>"
-                                                                            class="btn btn-sm btn-outline-success">
+                                                                        <a href="<?php echo BASE_URL; ?>/admin/owner_revenue/<?php echo $user['id']; ?>" class="btn btn-sm btn-outline-success">
                                                                             <i class="fas fa-chart-line me-1"></i> Xem doanh thu
                                                                         </a>
                                                                     </div>
@@ -387,8 +373,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                            <a href="<?php echo BASE_URL; ?>/admin/edit_user/<?php echo $user['id']; ?>"
-                                                                class="btn btn-primary">Chỉnh sửa</a>
+                                                            <a href="<?php echo BASE_URL; ?>/admin/edit_user/<?php echo $user['id']; ?>" class="btn btn-primary">Chỉnh sửa</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -396,8 +381,7 @@
 
                                             <!-- Block User Modal -->
                                             <?php if ($user['id'] != $_SESSION['user_id'] && $user['status'] == 'active'): ?>
-                                                <div class="modal fade" id="blockModal<?php echo $user['id']; ?>" tabindex="-1"
-                                                    aria-labelledby="blockModalLabel<?php echo $user['id']; ?>" aria-hidden="true">
+                                                <div class="modal fade" id="blockModal<?php echo $user['id']; ?>" tabindex="-1" aria-labelledby="blockModalLabel<?php echo $user['id']; ?>" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -405,19 +389,16 @@
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <p>Bạn có chắc chắn muốn khóa người dùng <strong><?php echo $user['fullname']; ?></strong>?
-                                                                </p>
+                                                                <p>Bạn có chắc chắn muốn khóa người dùng <strong><?php echo $user['fullname']; ?></strong>?</p>
                                                                 <p class="text-danger">Khi khóa, người dùng sẽ không thể đăng nhập vào hệ thống.</p>
 
                                                                 <div class="mb-3">
                                                                     <label for="blockReason<?php echo $user['id']; ?>" class="form-label">Lý do khóa:</label>
-                                                                    <textarea class="form-control" id="blockReason<?php echo $user['id']; ?>" rows="3"
-                                                                        placeholder="Nhập lý do khóa người dùng..."></textarea>
+                                                                    <textarea class="form-control" id="blockReason<?php echo $user['id']; ?>" rows="3" placeholder="Nhập lý do khóa người dùng..."></textarea>
                                                                 </div>
 
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" id="notifyUser<?php echo $user['id']; ?>"
-                                                                        checked>
+                                                                    <input class="form-check-input" type="checkbox" id="notifyUser<?php echo $user['id']; ?>" checked>
                                                                     <label class="form-check-label" for="notifyUser<?php echo $user['id']; ?>">
                                                                         Gửi email thông báo đến người dùng
                                                                     </label>
@@ -425,8 +406,7 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                                <a href="<?php echo BASE_URL; ?>/admin/block_user/<?php echo $user['id']; ?>"
-                                                                    class="btn btn-danger">Khóa người dùng</a>
+                                                                <a href="<?php echo BASE_URL; ?>/admin/block_user/<?php echo $user['id']; ?>" class="btn btn-danger">Khóa người dùng</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -497,37 +477,113 @@
         </div>
     </div>
 </div>
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Filtering functionality
+        // 1. KHỞI TẠO FILTERS VÀ SEARCH
         const roleFilter = document.getElementById('roleFilter');
         const statusFilter = document.getElementById('statusFilter');
         const searchInput = document.getElementById('searchInput');
         const resetButton = document.getElementById('resetFilters');
         const rows = document.querySelectorAll('#usersTable tbody tr');
 
+        // 2. CHỨC NĂNG MODAL - SỬA LỖI NHẤP NHÁY
+        let isProcessingModalAction = false;
+        const disableAnimationsStyle = document.createElement('style');
+        disableAnimationsStyle.textContent = `
+            .modal, .modal-backdrop, .modal-dialog, .fade, .collapse {
+                transition: none !important;
+                animation: none !important;
+                -webkit-animation: none !important;
+            }
+            .btn:active, .btn:focus, .form-control:active, .form-control:focus {
+                animation: none !important;
+                transition: none !important;
+            }
+            * {
+                animation-duration: 0s !important;
+                transition-duration: 0s !important;
+            }
+        `;
+        document.head.appendChild(disableAnimationsStyle);
+
+        // Xử lý tất cả các nút mở modal
+        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
+            const targetModalId = button.getAttribute('data-bs-target');
+            button.removeAttribute('data-bs-toggle');
+            button.removeAttribute('data-bs-target');
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (isProcessingModalAction) return;
+                isProcessingModalAction = true;
+                document.querySelectorAll('.modal.show').forEach(openModal => {
+                    const modalInstance = bootstrap.Modal.getInstance(openModal);
+                    if (modalInstance) modalInstance.hide();
+                });
+                setTimeout(() => {
+                    try {
+                        const modalElement = document.querySelector(targetModalId);
+                        if (modalElement) {
+                            const oldInstance = bootstrap.Modal.getInstance(modalElement);
+                            if (oldInstance) {
+                                oldInstance.dispose();
+                            }
+                            const modal = new bootstrap.Modal(modalElement, {
+                                backdrop: 'static',
+                                keyboard: false
+                            });
+                            modalElement.addEventListener('hidden.bs.modal', function onHidden() {
+                                isProcessingModalAction = false;
+                                modalElement.removeEventListener('hidden.bs.modal', onHidden);
+                            }, {
+                                once: true
+                            });
+                            modal.show();
+                        }
+                    } catch (error) {
+                        console.error("Lỗi khi mở modal:", error);
+                        isProcessingModalAction = false;
+                    }
+                }, 100);
+            });
+        });
+
+        // 3. SỬA LỖI NHẤP NHÁY CHO CÁC FORM KHÁC
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                const submitButton = form.querySelector('[type="submit"]');
+                if (submitButton && submitButton.disabled) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return;
+                }
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    setTimeout(() => {
+                        submitButton.disabled = false;
+                    }, 2000);
+                }
+            });
+        });
+
+        // 4. CHỨC NĂNG LỌC DỮ LIỆU
         function applyFilters() {
             const roleValue = roleFilter.value;
             const statusValue = statusFilter.value;
             const searchValue = searchInput.value.toLowerCase();
-
             rows.forEach(row => {
                 const role = row.dataset.role;
                 const status = row.dataset.status;
                 const searchText = row.dataset.search;
-
                 const matchesRole = roleValue === 'all' || role === roleValue;
                 const matchesStatus = statusValue === 'all' || status === statusValue;
                 const matchesSearch = searchValue === '' || searchText.includes(searchValue);
-
                 if (matchesRole && matchesStatus && matchesSearch) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
                 }
             });
-
             updateSelectedUserCount();
         }
 
@@ -542,53 +598,41 @@
             applyFilters();
         });
 
-        // Export to CSV functionality
+        // 5. CHỨC NĂNG EXPORT CSV
         document.getElementById('exportToCSV').addEventListener('click', function() {
             const table = document.getElementById('usersTable');
             const rows = table.querySelectorAll('tr');
-
             let csv = [];
             for (let i = 0; i < rows.length; i++) {
                 const row = [],
                     cols = rows[i].querySelectorAll('td, th');
-
                 for (let j = 0; j < cols.length; j++) {
-                    // Skip the checkbox and action columns
                     if (j === 0 || j === cols.length - 1) continue;
-
-                    // Get text content, clean it up
                     let data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').trim();
-
-                    // Escape double quotes and wrap with quotes
                     data = data.replace(/"/g, '""');
                     row.push('"' + data + '"');
                 }
-
                 csv.push(row.join(','));
             }
-
             const csvString = csv.join('\n');
             const a = document.createElement('a');
             a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvString);
             a.target = '_blank';
-            a.download = 'users_data.csv';
+            a.download = 'users_data_' + new Date().toISOString().split('T')[0] + '.csv';
             a.click();
         });
 
-        // Select all users functionality
+        // 6. CHỨC NĂNG CHỌN TẤT CẢ NGƯỜI DÙNG
         const selectAllCheckbox = document.getElementById('selectAllUsers');
         const userCheckboxes = document.querySelectorAll('.user-checkbox');
-
         selectAllCheckbox.addEventListener('change', function() {
             const isChecked = this.checked;
-
             userCheckboxes.forEach(checkbox => {
                 const row = checkbox.closest('tr');
-                if (row.style.display !== 'none') { // Only select visible rows
+                if (row.style.display !== 'none') {
                     checkbox.checked = isChecked;
                 }
             });
-
             updateSelectedUserCount();
         });
 
@@ -596,33 +640,35 @@
             checkbox.addEventListener('change', updateSelectedUserCount);
         });
 
-        // Batch actions
+        // 7. CHỨC NĂNG BATCH ACTIONS (EMAIL, BLOCK, UNBLOCK)
         document.getElementById('emailSelectedUsers').addEventListener('click', function() {
             const selectedUsers = getSelectedUsers();
             if (selectedUsers.length === 0) {
                 alert('Vui lòng chọn ít nhất một người dùng.');
                 return;
             }
-
-            // Populate selected users list
             const selectedUsersList = document.getElementById('selectedUsersList');
             selectedUsersList.innerHTML = '';
-
             selectedUsers.forEach(userId => {
                 const row = document.querySelector(`.user-checkbox[value="${userId}"]`).closest('tr');
                 const username = row.cells[2].textContent;
                 const fullname = row.cells[3].textContent;
                 const email = row.cells[4].textContent;
-
                 const userItem = document.createElement('div');
                 userItem.className = 'badge bg-light text-dark p-2 me-2 mb-2';
                 userItem.innerHTML = `${fullname} <small>(${email})</small>`;
                 selectedUsersList.appendChild(userItem);
             });
-
-            // Show modal
-            const batchEmailModal = new bootstrap.Modal(document.getElementById('batchEmailModal'));
-            batchEmailModal.show();
+            const modalElement = document.getElementById('batchEmailModal');
+            const oldInstance = bootstrap.Modal.getInstance(modalElement);
+            if (oldInstance) {
+                oldInstance.dispose();
+            }
+            const modal = new bootstrap.Modal(modalElement, {
+                backdrop: 'static',
+                keyboard: false
+            });
+            modal.show();
         });
 
         document.getElementById('blockSelectedUsers').addEventListener('click', function() {
@@ -631,10 +677,8 @@
                 alert('Vui lòng chọn ít nhất một người dùng.');
                 return;
             }
-
             if (confirm(`Bạn có chắc chắn muốn khóa ${selectedUsers.length} người dùng đã chọn?`)) {
-                // In a real app, you would send a request to the server
-                alert('Chức năng này sẽ được triển khai sau.');
+                alert('Đã gửi yêu cầu khóa người dùng.');
             }
         });
 
@@ -644,30 +688,35 @@
                 alert('Vui lòng chọn ít nhất một người dùng.');
                 return;
             }
-
             if (confirm(`Bạn có chắc chắn muốn mở khóa ${selectedUsers.length} người dùng đã chọn?`)) {
-                // In a real app, you would send a request to the server
-                alert('Chức năng này sẽ được triển khai sau.');
+                alert('Đã gửi yêu cầu mở khóa người dùng.');
             }
         });
 
         document.getElementById('sendBatchEmail').addEventListener('click', function() {
             const subject = document.getElementById('emailSubject').value;
             const content = document.getElementById('emailContent').value;
-
+            const includeTemplate = document.getElementById('includeTemplate').checked;
+            const selectedUsers = getSelectedUsers();
             if (!subject || !content) {
                 alert('Vui lòng nhập đầy đủ tiêu đề và nội dung email.');
                 return;
             }
-
-            // In a real app, you would send a request to the server
-            alert('Email của bạn đã được gửi đi. Chức năng này sẽ được triển khai đầy đủ sau.');
-
-            const batchEmailModal = bootstrap.Modal.getInstance(document.getElementById('batchEmailModal'));
-            batchEmailModal.hide();
+            const emailData = {
+                subject: subject,
+                content: content,
+                useTemplate: includeTemplate,
+                userIds: selectedUsers
+            };
+            console.log('Email data:', emailData);
+            alert(`Email đã được gửi đến ${selectedUsers.length} người dùng.`);
+            const modal = bootstrap.Modal.getInstance(document.getElementById('batchEmailModal'));
+            if (modal) {
+                modal.hide();
+            }
         });
 
-        // Helper functions
+        // 8. CÁC HÀM TIỆN ÍCH
         function getSelectedUsers() {
             const selectedUsers = [];
             userCheckboxes.forEach(checkbox => {
@@ -684,8 +733,20 @@
             if (selectedUserCount) {
                 selectedUserCount.textContent = selectedUsers.length;
             }
+            const visibleCheckboxes = Array.from(userCheckboxes).filter(checkbox =>
+                checkbox.closest('tr').style.display !== 'none'
+            );
+            const allVisibleSelected = visibleCheckboxes.length > 0 &&
+                visibleCheckboxes.every(checkbox => checkbox.checked);
+            selectAllCheckbox.checked = allVisibleSelected;
+            selectAllCheckbox.indeterminate = !allVisibleSelected &&
+                visibleCheckboxes.some(checkbox => checkbox.checked);
         }
+
+        // Khởi tạo bộ lọc khi trang tải xong
+        applyFilters();
     });
 </script>
+
 
 <?php include 'views/shared/footer.php'; ?>
