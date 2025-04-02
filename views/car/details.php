@@ -11,11 +11,11 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
           <?php
           $first = true;
           foreach ($car_details['images'] as $image): ?>
-            <div class="carousel-item <?php echo $first ? 'active' : ''; ?>">
-              <img src="<?php echo BASE_URL . '/' . $image['image_path']; ?>" class="d-block w-100"
-                alt="<?php echo $car_details['brand'] . ' ' . $car_details['model']; ?>"
-                style="height: 400px; object-fit: cover;">
-            </div>
+          <div class="carousel-item <?php echo $first ? 'active' : ''; ?>">
+            <img src="<?php echo BASE_URL . '/' . $image['image_path']; ?>" class="d-block w-100"
+              alt="<?php echo $car_details['brand'] . ' ' . $car_details['model']; ?>"
+              style="height: 400px; object-fit: cover;">
+          </div>
           <?php
             $first = false;
           endforeach; ?>
@@ -33,15 +33,13 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
           <?php
           $index = 0;
           foreach ($car_details['images'] as $image): ?>
-            <button type="button" data-bs-target="#carImagesCarousel" data-bs-slide-to="<?php echo $index; ?>"
-              <?php echo $index === 0 ? 'class="active"' : ''; ?>></button>
+          <button type="button" data-bs-target="#carImagesCarousel" data-bs-slide-to="<?php echo $index; ?>"
+            <?php echo $index === 0 ? 'class="active"' : ''; ?>></button>
           <?php
             $index++;
           endforeach; ?>
         </div>
       </div>
-    </div>
-  </div>
       <div class="row mt-4">
         <div>
           <!-- Car Description -->
@@ -136,28 +134,28 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
           <div class="card border-0 shadow-sm">
             <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
               <h3 class="fs-5 fw-semibold mb-0">Đánh giá từ khách hàng</h3>
-              <span class="badge bg-success rounded-pill"><?php echo count($car_details['reviews']); ?> đánh giá</span>
+              <span class="badge rounded-pill"style="background-color: #5fcf86"><?php echo count($car_details['reviews']); ?> đánh giá</span>
             </div>
             <div class="card-body">
               <?php if (empty($car_details['reviews'])): ?>
-                <p class="text-muted">Chưa có đánh giá nào cho xe này.</p>
+              <p class="text-muted">Chưa có đánh giá nào cho xe này.</p>
               <?php else: ?>
-                <?php foreach ($car_details['reviews'] as $review): ?>
-                  <div class="review-item mb-3 pb-3 border-bottom">
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex">
-                        <div class="me-3">
-                          <!-- Add user avatar if available -->
-                          <div
-                            class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center"
-                            style="width:40px; height:40px;">
-                            <i class="fas fa-user"></i>
-                          </div>
-                        </div>
-                        <div>
-                          <h5 class="fs-6 fw-semibold mb-1"><?php echo $review['user_name']; ?></h5>
-                          <div class="review-rating">
-                            <?php
+              <?php foreach ($car_details['reviews'] as $review): ?>
+              <div class="review-item mb-3 pb-3 border-bottom">
+                <div class="d-flex justify-content-between">
+                  <div class="d-flex">
+                    <div class="me-3">
+                      <!-- Add user avatar if available -->
+                      <div
+                        class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center"
+                        style="width:40px; height:40px;">
+                        <i class="fas fa-user"></i>
+                      </div>
+                    </div>
+                    <div>
+                      <h5 class="fs-6 fw-semibold mb-1"><?php echo $review['user_name']; ?></h5>
+                      <div class="review-rating">
+                        <?php
                             for ($i = 1; $i <= 5; $i++) {
                               if ($i <= $review['rating']) {
                                 echo '<i class="fas fa-star text-warning"></i>';
@@ -166,22 +164,21 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
                               }
                             }
                             ?>
-                          </div>
-                        </div>
                       </div>
-                      <small class="text-muted"><?php echo date('d/m/Y', strtotime($review['created_at'])); ?></small>
                     </div>
-                    <p class="mt-2 small"><?php echo nl2br($review['comment']); ?></p>
                   </div>
-                <?php endforeach; ?>
-                <a href="#" class="btn btn-link text-success p-0">Xem thêm đánh giá</a>
+                  <small class="text-muted"><?php echo date('d/m/Y', strtotime($review['created_at'])); ?></small>
+                </div>
+                <p class="mt-2 small"><?php echo nl2br($review['comment']); ?></p>
+              </div>
+              <?php endforeach; ?>
+              <a href="#" class="btn btn-link p-0" style="color: #5fcf86">Xem thêm đánh giá</a>
               <?php endif; ?>
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <!-- Car Details -->
     <div class="col-md-5">
       <div class="top-24 card border-0 shadow-sm" style="max-height: calc(100vh - 120px); overflow-y: auto;">
@@ -236,7 +233,7 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
             <p class="text-muted mb-0 small">Nhập mã "MIOTO10" để được giảm 10% tối đa 300k cho chuyến đi</p>
           </div>
           <div class="car-price mb-4">
-            <h3 class="text-success fw-bold"><?php echo number_format($car_details['price_per_day'], 0, ',', '.'); ?>
+            <h3 class="fw-bold" style="color: #5fcf86"><?php echo number_format($car_details['price_per_day'], 0, ',', '.'); ?>
               VND <span class="text-muted fs-6 fw-normal">/ ngày</span></h3>
           </div>
 
@@ -279,43 +276,48 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
           <!-- Booking CTA -->
           <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] != $car_details['owner_id']): ?>
           <?php
-              $userId = $_SESSION['user_id'];
-              $userRole = $_SESSION['role'] ?? ''; // Lấy role từ session
-              $hasLicense = $this->bookingService->checkUserDriversLicense($userId);
-          ?>
+            $userId = $_SESSION['user_id'];
+            $userRole = $_SESSION['role'] ?? ''; // Lấy role từ session
+            $hasLicense = $this->bookingService->checkUserDriversLicense($userId);
+            ?>
 
-          <?php if ($_SESSION['user_role'] !== 'admin'): ?> <!-- Ẩn nút nếu là admin -->
-              <?php if ($hasLicense): ?>
-                  <a href="<?php echo BASE_URL . '/booking/create/' . $car_details['id']; ?>" class="btn btn-primary btn-lg w-100 mb-3">Đặt xe ngay</a>
-              <?php else: ?>
-                  <button type="button" class="btn btn-primary btn-lg w-100 mb-3" data-bs-toggle="modal" data-bs-target="#licenseModal">
-                      Đặt xe ngay
-                  </button>
+          <?php if ($_SESSION['user_role'] !== 'admin'): ?>
+          <!-- Ẩn nút nếu là admin -->
+          <?php if ($hasLicense): ?>
+          <a href="<?php echo BASE_URL . '/booking/create/' . $car_details['id']; ?>"
+            class="btn btn-primary btn-lg w-100 mb-3">Đặt xe ngay</a>
+          <?php else: ?>
+          <button type="button" class="btn btn-primary btn-lg w-100 mb-3" data-bs-toggle="modal"
+            data-bs-target="#licenseModal">
+            Đặt xe ngay
+          </button>
 
-                  <!-- Modal yêu cầu cập nhật giấy phép lái xe -->
-                  <div class="modal fade" id="licenseModal" tabindex="-1" aria-labelledby="licenseModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                          <div class="modal-content">
-                              <div class="modal-header">
-                                  <h5 class="modal-title" id="licenseModalLabel">Cập nhật thông tin</h5>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                  Bạn chưa cập nhật giấy phép lái xe. Vui lòng cập nhật thông tin của bạn để có thể đặt xe.
-                              </div>
-                              <div class="modal-footer">
-                                  <a href="<?php echo BASE_URL . '/user/profile'; ?>" class="btn btn-primary">Cập nhật thông tin</a>
-                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              <?php endif; ?>
+          <!-- Modal yêu cầu cập nhật giấy phép lái xe -->
+          <div class="modal fade" id="licenseModal" tabindex="-1" aria-labelledby="licenseModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="licenseModalLabel">Cập nhật thông tin</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Bạn chưa cập nhật giấy phép lái xe. Vui lòng cập nhật thông tin của bạn để có thể đặt xe.
+                </div>
+                <div class="modal-footer">
+                  <a href="<?php echo BASE_URL . '/user/profile'; ?>" class="btn btn-primary">Cập nhật thông tin</a>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <?php endif; ?>
           <?php endif; ?>
 
-<?php elseif (!isset($_SESSION['user_id'])): ?>
-    <a href="<?php echo BASE_URL . '/auth/login'; ?>" class="btn btn-primary btn-lg w-100 mb-3">Đăng nhập để đặt xe</a>
-<?php endif; ?>
+          <?php elseif (!isset($_SESSION['user_id'])): ?>
+          <a href="<?php echo BASE_URL . '/auth/login'; ?>" class="btn text-white fw-bold d-flex align-items-center justify-content-center" style="background-color: #5fcf86; width: 100%; height: 36px; font-size: 1.4rem">Đăng nhập để đặt
+            xe</a>
+          <?php endif; ?>
         </div>
       </div>
       <!-- Car Location Map - MOVED HERE FROM BELOW -->
@@ -334,8 +336,7 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
         </div>
       </div>
     </div>
-
-
   </div>
 </div>
+
 <?php include 'views/shared/footer.php'; ?>
