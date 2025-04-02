@@ -26,7 +26,7 @@
                         <a href="<?php echo BASE_URL; ?>/owner/bookings" class="list-group-item list-group-item-action">
                             <i class="fas fa-calendar-alt me-2"></i> Quản lý đơn thuê
                         </a>
-                        <a href="<?php echo BASE_URL; ?>/owner/revenue" class="list-group-item list-group-item-action">
+                        <a href="<?php echo BASE_URL; ?>/owner/revenue?period=week" class="list-group-item list-group-item-action">
                             <i class="fas fa-chart-line me-2"></i> Doanh thu
                         </a>
                     <?php endif; ?>
@@ -45,12 +45,14 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="username" class="form-label">Tên đăng nhập</label>
-                                <input type="text" class="form-control" id="username" value="<?php echo $user['username']; ?>" readonly disabled>
+                                <input type="text" class="form-control" id="username" value="<?php echo $user['username']; ?>" readonly
+                                    disabled>
                                 <div class="form-text">Tên đăng nhập không thể thay đổi.</div>
                             </div>
                             <div class="col-md-6">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" value="<?php echo $user['email']; ?>" readonly disabled>
+                                <input type="email" class="form-control" id="email" value="<?php echo $user['email']; ?>" readonly
+                                    disabled>
                                 <div class="form-text">Email không thể thay đổi.</div>
                             </div>
                         </div>
@@ -58,17 +60,20 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="fullname" class="form-label">Họ và tên</label>
-                                <input type="text" class="form-control" id="fullname" name="fullname" value="<?php echo $user['fullname']; ?>" required>
+                                <input type="text" class="form-control" id="fullname" name="fullname"
+                                    value="<?php echo $user['fullname']; ?>" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="phone" class="form-label">Số điện thoại</label>
-                                <input type="tel" class="form-control" id="phone" name="phone" value="<?php echo $user['phone']; ?>" required>
+                                <input type="tel" class="form-control" id="phone" name="phone" value="<?php echo $user['phone']; ?>"
+                                    required>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="address" class="form-label">Địa chỉ</label>
-                            <textarea class="form-control" id="address" name="address" rows="3" required><?php echo $user['address']; ?></textarea>
+                            <textarea class="form-control" id="address" name="address" rows="3"
+                                required><?php echo $user['address']; ?></textarea>
                         </div>
 
                         <?php if ($user['role'] !== 'admin'): ?>
@@ -80,17 +85,21 @@
                                         <div class="text-danger mt-2">Hãy cập nhật giấy phép lái xe</div>
                                     <?php endif; ?>
                                 </div>
+
                             </div>
                         <?php endif; ?>
 
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="role" class="form-label">Vai trò</label>
-                                <input type="text" class="form-control" id="role" value="<?php echo $user['role'] == 'admin' ? 'Quản trị viên' : ($user['role'] == 'owner' ? 'Chủ xe' : 'Người dùng thường'); ?>" readonly disabled>
+                                <input type="text" class="form-control" id="role"
+                                    value="<?php echo $user['role'] == 'admin' ? 'Quản trị viên' : ($user['role'] == 'owner' ? 'Chủ xe' : 'Người dùng thường'); ?>"
+                                    readonly disabled>
                             </div>
                             <div class="col-md-6">
                                 <label for="created_at" class="form-label">Ngày đăng ký</label>
-                                <input type="text" class="form-control" id="created_at" value="<?php echo date('d/m/Y', strtotime($user['created_at'])); ?>" readonly disabled>
+                                <input type="text" class="form-control" id="created_at"
+                                    value="<?php echo date('d/m/Y', strtotime($user['created_at'])); ?>" readonly disabled>
                             </div>
                         </div>
 
@@ -100,7 +109,6 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
