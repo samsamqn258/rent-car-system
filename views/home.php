@@ -119,8 +119,7 @@
       <a href="<?php echo BASE_URL; ?>/cars/details/<?php echo $car['id']; ?>" class="card-car col-md-3 mb-4">
         <div class="card h-100">
           <img src="<?php echo BASE_URL . '/' . $car['primary_image']; ?>" class="card-img-top"
-            alt="<?php echo $car['brand'] . ' ' . $car['model']; ?>"
-            style="width: 300px; height: 200px; object-fit: cover;">
+            alt="<?php echo $car['brand'] . ' ' . $car['model']; ?>" style="height: 200px; object-fit: contain;">
           <!-- <div>
             <pre><?php print_r($car); ?></pre>
           </div> -->
@@ -151,12 +150,12 @@
             <div class="d-flex align-items-center justify-content-between">
               <div class="car-rating d-flex align-items-center">
                 <i class="fas fa-star text-warning"></i>
-                <p style=" margin-top: 1px; margin-left: 6px; margin-bottom: 0;">
-                  <?php echo $car['review_count']; ?>
+                <p style=" margin-top: 1px; margin-left: 3px; margin-bottom: 0; color: #767676; font-size: 0.875rem">
+                  <?php echo $car['review_count'] === 0 ? "5.0" : $car['review_count']; ?>
                 </p>
               </div>
 
-              <div class="car-price fw-bold " style="color: #5fcf86">
+              <div class="car-price fw-bold " style="color: #5fcf86; font-size: 1rem">
                 <?php echo number_format($car['price_per_day'], 0, ',', '.'); ?> VND/ngày
               </div>
             </div>
