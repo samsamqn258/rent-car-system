@@ -202,6 +202,22 @@ class CarService
         return $cars;
     }
 
+    public function searchCarByAddress($search_params)
+{
+    // Gọi hàm readAvailableByAddress để tìm kiếm các xe theo địa chỉ và ngày
+    $cars_stmt = $this->car->readAvailableByAddress($search_params);
+    $cars = [];
+
+    // Duyệt qua kết quả trả về và đưa các xe vào mảng $cars
+    while ($row = $cars_stmt->fetch(PDO::FETCH_ASSOC)) {
+        $cars[] = $row;
+    }
+
+    // Trả về danh sách các xe nếu tìm thấy, nếu không có xe trả về mảng rỗng
+    return $cars ?: [];
+}
+
+
     // Get cars by owner
     public function getCarsByOwner($owner_id)
     {

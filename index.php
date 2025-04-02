@@ -69,6 +69,9 @@ switch ($controller_name) {
             case 'search':
                 $controller->search();
                 break;
+            case 'searchAddress':
+                $controller->searchAddress();
+                break;
             case 'details':
                 $controller->details($param);
                 break;

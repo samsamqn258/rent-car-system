@@ -76,17 +76,18 @@
                                 required><?php echo $user['address']; ?></textarea>
                         </div>
 
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="license" class="form-label">Số giấy phép lái xe</label>
-                                <input type="text" class="form-control <?php echo empty($user['license']) ? 'border-danger' : ''; ?>"
-                                    id="license" name="license" value="<?php echo isset($user['license']) ? $user['license'] : ''; ?>"
-                                    required>
-                                <?php if (empty($user['license'])): ?>
-                                    <div class="text-danger mt-2">Hãy cập nhật giấy phép lái xe</div>
-                                <?php endif; ?>
+                        <?php if ($user['role'] !== 'admin'): ?>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="license" class="form-label">Số giấy phép lái xe</label>
+                                    <input type="text" class="form-control <?php echo empty($user['license']) ? 'border-danger' : ''; ?>" id="license" name="license" value="<?php echo isset($user['license']) ? $user['license'] : ''; ?>" required>
+                                    <?php if (empty($user['license'])): ?>
+                                        <div class="text-danger mt-2">Hãy cập nhật giấy phép lái xe</div>
+                                    <?php endif; ?>
+                                </div>
+
                             </div>
-                        </div>
+                        <?php endif; ?>
 
                         <div class="row mb-3">
                             <div class="col-md-6">
@@ -108,34 +109,6 @@
                     </form>
                 </div>
             </div>
-
-            <?php if ($user['role'] != 'owner'): ?>
-                <div class="card mt-4">
-                    <div class="card-header bg-info text-white">
-                        <h3 class="mb-0">Trở thành chủ xe</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h5>Bạn có xe và muốn cho thuê?</h5>
-                                <p>Trở thành chủ xe trên hệ thống của chúng tôi và kiếm thêm thu nhập từ việc cho thuê xe khi bạn không sử
-                                    dụng.</p>
-                                <ul>
-                                    <li>Kiếm thêm thu nhập hàng tháng</li>
-                                    <li>Linh hoạt trong việc quản lý xe và thời gian cho thuê</li>
-                                    <li>Được hỗ trợ đầy đủ từ đội ngũ của chúng tôi</li>
-                                    <li>Đăng ký đơn giản và nhanh chóng</li>
-                                </ul>
-                                <a href="<?php echo BASE_URL; ?>/user/upgrade_to_owner" class="btn btn-primary">Đăng ký làm chủ xe</a>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <img src="<?php echo BASE_URL; ?>/public/images/car-owner.jpg" alt="Become Car Owner"
-                                    class="img-fluid rounded">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php endif; ?>
         </div>
     </div>
 </div>

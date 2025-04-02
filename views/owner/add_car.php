@@ -112,13 +112,37 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
               <div class="form-text">Mô tả chi tiết về xe, tính năng, điều kiện thuê, v.v.</div>
             </div>
 
-            <!-- Location -->
-            <h5 class="mt-4 mb-3">Vị trí xe</h5>
-            <div class="mb-3">
-              <label for="address" class="form-label">Địa chỉ</label>
-              <input type="text" class="form-control" id="address" name="address" required
-                value="<?php echo isset($_SESSION['form_data']['address']) ? $_SESSION['form_data']['address'] : ''; ?>">
-            </div>
+                        <!-- Location -->
+                        <h5 class="mt-4 mb-3">Vị trí xe</h5>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="province" class="form-label">Tỉnh/Thành phố</label>
+                                    <select class="form-select" id="province">
+                                        <option value="">Chọn Tỉnh/Thành phố</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="district" class="form-label">Quận/Huyện</label>
+                                    <select class="form-select" id="district" disabled>
+                                        <option value="">Chọn Quận/Huyện</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="ward" class="form-label">Phường/Xã</label>
+                                    <select class="form-select" id="ward" disabled>
+                                        <option value="">Chọn Phường/Xã</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="street" class="form-label">Tên đường</label>
+                                    <select class="form-select" id="street" disabled>
+                                        <option value="">Chọn Tên Đường</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        <!-- Ô ẩn để lưu địa chỉ -->
+                        <input type="hidden" id="address" name="address">
 
             <!-- Map for location selection -->
             <!-- Ẩn input để lưu tọa độ -->
@@ -233,29 +257,142 @@ document.addEventListener('DOMContentLoaded', function() {
   form.addEventListener('submit', function(e) {
     const imageInput = document.getElementById('car_images');
 
-    if (imageInput.files.length === 0) {
-      e.preventDefault();
-      alert('Vui lòng tải lên ít nhất một hình ảnh của xe.');
-    }
-  });
-});
-document.getElementById('address').addEventListener('change', function() {
-  var address = this.value;
-  var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address);
-
-  fetch(apiUrl)
-    .then(response => response.json())
-    .then(data => {
-      if (data.length > 0) {
-        document.getElementById('latitude').value = data[0].lat;
-        document.getElementById('longitude').value = data[0].lon;
-      } else {
-        alert('Không tìm thấy vị trí. Vui lòng nhập lại địa chỉ.');
-      }
-    })
-    .catch(error => console.error('Lỗi:', error));
-});
+            if (imageInput.files.length === 0) {
+                e.preventDefault();
+                alert('Vui lòng tải lên ít nhất một hình ảnh của xe.');
+            }
+        });
+    });
 </script>
+<!-- Chọn địa chỉ theo option -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const provinceSelect = document.getElementById('province');
+    const districtSelect = document.getElementById('district');
+    const wardSelect = document.getElementById('ward');
+    const streetSelect = document.getElementById('street');
+    const addressInput = document.getElementById('address');
+
+    // API danh sách đường (Thay thế bằng API thực tế nếu có)
+    const streetsByDistrict = {
+        "760": ["Nguyễn Huệ", "Lê Lợi", "Đồng Khởi"], // Quận 1
+        "765": ["Điện Biên Phủ", "Phan Đăng Lưu", "Xô Viết Nghệ Tĩnh"], // Quận Bình Thạnh
+    };
+
+    // Fetch danh sách tỉnh/thành phố
+    fetch('https://provinces.open-api.vn/api/?depth=1')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(province => {
+                let option = document.createElement('option');
+                option.value = province.code;
+                option.textContent = province.name;
+                provinceSelect.appendChild(option);
+            });
+        });
+
+    // Khi chọn tỉnh/thành phố
+    provinceSelect.addEventListener('change', function() {
+        let provinceCode = this.value;
+        resetSelect([districtSelect, wardSelect, streetSelect]);
+        updateAddress();
+
+        if (!provinceCode) return;
+
+        fetch(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`)
+            .then(response => response.json())
+            .then(data => {
+                data.districts.forEach(district => {
+                    let option = document.createElement('option');
+                    option.value = district.code;
+                    option.textContent = district.name;
+                    districtSelect.appendChild(option);
+                });
+                districtSelect.disabled = false;
+            });
+    });
+
+    // Khi chọn quận/huyện
+    districtSelect.addEventListener('change', function() {
+        let districtCode = this.value;
+        resetSelect([wardSelect, streetSelect]);
+        updateAddress();
+
+        if (!districtCode) return;
+
+        fetch(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`)
+            .then(response => response.json())
+            .then(data => {
+                data.wards.forEach(ward => {
+                    let option = document.createElement('option');
+                    option.value = ward.name;
+                    option.textContent = ward.name;
+                    wardSelect.appendChild(option);
+                });
+                wardSelect.disabled = false;
+            });
+
+        // Load danh sách đường (Nếu có API thực tế, thay thế đoạn này)
+        if (streetsByDistrict[districtCode]) {
+            streetsByDistrict[districtCode].forEach(street => {
+                let option = document.createElement('option');
+                option.value = street;
+                option.textContent = street;
+                streetSelect.appendChild(option);
+            });
+            streetSelect.disabled = false;
+        }
+    });
+
+    // Khi chọn phường/xã hoặc tên đường
+    wardSelect.addEventListener('change', updateAddress);
+    streetSelect.addEventListener('change', updateAddress);
+
+    // Hàm cập nhật địa chỉ và gọi API để lấy tọa độ
+    function updateAddress() {
+        let province = provinceSelect.options[provinceSelect.selectedIndex]?.text || '';
+        let district = districtSelect.options[districtSelect.selectedIndex]?.text || '';
+        let ward = wardSelect.value || '';
+        let street = streetSelect.value || '';
+
+        let address = [street, ward, district, province].filter(Boolean).join(', ');
+        addressInput.value = address;
+
+        // Cập nhật tọa độ nếu có
+        if (address) {
+            updateLocation(address);
+        }
+    }
+
+    // Hàm gọi API để lấy tọa độ
+    function updateLocation(address) {
+        var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address);
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    document.getElementById('latitude').value = data[0].lat;
+                    document.getElementById('longitude').value = data[0].lon;
+                } else {
+                    alert('Không tìm thấy vị trí. Vui lòng nhập lại địa chỉ.');
+                }
+            })
+            .catch(error => console.error('Lỗi:', error));
+    }
+
+    function resetSelect(selectElements) {
+        selectElements.forEach(select => {
+            select.innerHTML = '<option value="">Chọn</option>';
+            select.disabled = true;
+        });
+    }
+
+    
+});
+
+</script>
+
 
 <?php
 // Clear form data from session

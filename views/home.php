@@ -1,6 +1,7 @@
 <?php include 'views/shared/header.php'; ?>
 
 <!-- Hero Banner -->
+
 <div class="hero-banner position-relative">
   <div class="hero-overlay  ">
     <img src="<?php echo BASE_URL; ?>/public/images/pexels-photo-1392621.jpeg"
@@ -13,20 +14,18 @@
           <h1 class="hero-title">Thuê xe tự lái dễ dàng</h1>
           <p class="hero-subtitle">Khám phá hàng ngàn xe <strong style="color:#5fcf86">chất lượng cao</strong> từ các
             chủ xe đáng tin cậy</p>
-
-
         </div>
       </div>
     </div>
   </div>
   <!-- Search Form -->
   <div class="search-form-container position-absolute shadow start-50 end-50 translate-middle">
-    <form action="<?php echo BASE_URL; ?>/cars/search" method="get" class="search-form">
+    <form action="<?php echo BASE_URL; ?>/cars/searchAddress" method="get" class="search-form">
       <div class="row g-3">
         <div class="col-md-4 border-end">
           <div class="form-floating">
-            <input type="text" class="form-control border-0" id="location" name="location" placeholder="Nhập địa điểm">
-            <label for="location">Lựa chọn địa điểm</label>
+            <input type="text" class="form-control border-0" id="address" name="address" placeholder="Nhập địa điểm">
+            <label for="address">Lựa chọn địa điểm</label>
           </div>
         </div>
         <div class="col-md-3">
@@ -115,7 +114,6 @@
 
   <div class="row">
     <?php foreach ($featured_cars as $car): ?>
-
       <a href="<?php echo BASE_URL; ?>/cars/details/<?php echo $car['id']; ?>" class="card-car col-md-3 mb-4">
         <div class="card h-100">
           <img src="<?php echo BASE_URL . '/' . $car['primary_image']; ?>" class="card-img-top"
@@ -310,6 +308,7 @@
 <div class="container mt-5 mb-5">
   <div class="row align-items-center">
     <div class="col-md-6">
+
       <h2 class="heading-title">Bạn có xe và muốn cho thuê?</h2>
       <p class="lead">Hãy trở thành chủ xe và kiếm thêm thu nhập từ chiếc xe của bạn!</p>
       <ul class="list-unstyled">
@@ -322,8 +321,7 @@
         style="background-color: #5fcf86; width: 100%">Đăng ký làm chủ xe</a>
     </div>
     <div class="col-md-6">
-      <img src="<?php echo BASE_URL; ?>/public/images/pngtree-cab-online-ordering-process-picture-image_8710879.png"
-        alt="Become a Car Owner" class="img-fluid rounded">
+      <img src="<?php echo BASE_URL; ?>/public/images/pexels-photo-1287351.jpeg" class="img-fluid" alt="Become an owner">
     </div>
   </div>
 </div>
