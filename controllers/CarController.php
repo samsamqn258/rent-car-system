@@ -51,6 +51,31 @@ class CarController
         include 'views/car/search.php';
     }
 
+    public function searchAddress()
+    {
+        $search_params = [];
+        
+        if (isset($_GET['address']) && !empty($_GET['address'])) {
+            $search_params['address'] = $_GET['address'];
+        }
+
+        if (isset($_GET['start_date']) && !empty($_GET['start_date'])) {
+            $search_params['start_date'] = $_GET['start_date'];
+        }
+
+        if (isset($_GET['end_date']) && !empty($_GET['end_date'])) {
+            $search_params['end_date'] = $_GET['end_date'];
+        }
+
+        // Get available cars based on address and date range
+        $cars = $this->carService->searchCarByAddress($search_params);
+
+        $brands = $this->carService->getAllBrands();
+
+        // Include search view
+        include 'views/car/search.php';
+    }
+
     // Display car details
     public function details($id)
     {

@@ -131,6 +131,66 @@ class Car
         return $stmt;
     }
 
+    public function readAvailableByAddress($search_params = []) {
+        // Khởi tạo câu truy vấn
+        $query = "SELECT c.*, u.fullname as owner_name, 
+                    (SELECT image_path FROM car_images WHERE car_id = c.id AND is_primary = 1 LIMIT 1) as primary_image,
+                    AVG(r.rating) as avg_rating, COUNT(r.id) as review_count
+                  FROM " . $this->table_name . " c
+                  LEFT JOIN users u ON c.owner_id = u.id
+                  LEFT JOIN reviews r ON c.id = r.car_id
+                  LEFT JOIN bookings b ON c.id = b.car_id
+                  WHERE c.status = 'approved'";
+    
+        // Kiểm tra nếu có tham số tìm kiếm (address, start_date, end_date)
+        if (!empty($search_params)) {
+            if (isset($search_params['address']) && !empty($search_params['address'])) {
+                // Chia nhỏ địa chỉ thành từng phần (ví dụ: Hồ Chí Minh, Bình Thạnh, Võ Văn Kiệt)
+                $address_parts = explode(',', $search_params['address']);
+                $address_conditions = [];
+    
+                foreach ($address_parts as $index => $part) {
+                    $address_conditions[] = "c.address LIKE :address$index";
+                }
+    
+                // Kết hợp điều kiện tìm kiếm
+                $query .= " AND (" . implode(" AND ", $address_conditions) . ")";
+            }
+    
+            if (isset($search_params['start_date']) && isset($search_params['end_date'])) {
+                $query .= " AND c.id NOT IN (
+                    SELECT car_id FROM bookings 
+                    WHERE start_date <= :end_date AND end_date >= :start_date AND payment_status = 'paid')";
+            }
+        }
+    
+        // Nhóm theo car ID để xử lý nhiều đánh giá
+        $query .= " GROUP BY c.id";
+    
+        // Chuẩn bị và thực thi truy vấn
+        $stmt = $this->conn->prepare($query);
+    
+        // Liên kết các tham số tìm kiếm vào truy vấn
+        if (isset($search_params['address']) && !empty($search_params['address'])) {
+            $address_parts = explode(',', $search_params['address']);
+            foreach ($address_parts as $index => $part) {
+                $param = "%" . trim($part) . "%"; // Thêm ký tự % để tìm kiếm một phần địa chỉ
+                $stmt->bindParam(":address$index", $param);
+            }
+        }
+    
+        if (isset($search_params['start_date']) && isset($search_params['end_date'])) {
+            $stmt->bindParam(':start_date', $search_params['start_date']);
+            $stmt->bindParam(':end_date', $search_params['end_date']);
+        }
+    
+        // Thực thi truy vấn
+        $stmt->execute();
+    
+        return $stmt;
+    }
+    
+
     // Read car details by ID
     public function readOne()
     {
