@@ -31,6 +31,11 @@
               <i class="fas fa-chart-bar me-2"></i> Thống kê doanh thu
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/contracts">
+              <i class="fas fa-chart-bar me-2"></i> Quản lý hợp đồng
+            </a>
+          </li>
         </ul>
       </div>
     </div>

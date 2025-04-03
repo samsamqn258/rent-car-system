@@ -3,19 +3,19 @@ require_once 'models/Car.php';
 require_once 'models/Booking.php';
 require_once 'services/CarService.php';
 require_once 'services/BookingService.php';
-
+require_once 'services/CarOwnerContractService.php';
 class OwnerController
 {
     private $db;
     private $carService;
     private $bookingService;
-
+    private $contractService;
     public function __construct($db)
     {
         $this->db = $db;
         $this->carService = new CarService($db);
         $this->bookingService = new BookingService($db);
-
+        $this->contractService = new CarOwnerContractService($db);
         // Check if user is logged in and is an owner
         if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'owner') {
             $_SESSION['error'] = "Bạn không có quyền truy cập trang này.";
@@ -113,5 +113,30 @@ class OwnerController
         }
 
         return $car_revenue;
+    }
+
+    public function createContract()
+    {
+        $ownerId = $_SESSION['user_id'];
+        $result = $this->contractService->createDefaultContract($ownerId);
+
+        if ($result) {
+            $_SESSION['success'] = "Hợp đồng đã được tạo thành công.";
+            header('Location: ' . BASE_URL . '/owner/contracts');
+        } else {
+            $_SESSION['error'] = "Không thể tạo hợp đồng.";
+            header('Location: ' . BASE_URL . '/owner/contracts');
+        }
+
+
+        exit;
+    }
+
+    // Lấy danh sách hợp đồng của chủ xe
+    public function manageContracts()
+    {
+        $ownerId = $_SESSION['user_id'];
+        $contracts = $this->contractService->getContractsByOwnerId($ownerId);
+        include 'views/owner/owner_contracts.php';
     }
 }

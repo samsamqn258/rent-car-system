@@ -2,16 +2,20 @@
 require_once 'services/CarService.php';
 require_once 'utils/Validator.php';
 require_once 'services/BookingService.php';
+require_once 'services/CarOwnerContractService.php';
 class CarController
 {
     private $carService;
     private $validator;
+    private $carOwnerContractService;
+
     private $bookingService;
     public function __construct($db)
     {
         $this->carService = new CarService($db);
         $this->validator = new Validator();
         $this->bookingService = new BookingService($db);
+        $this->carOwnerContractService = new CarOwnerContractService($db);
     }
 
     // Display car search page
@@ -54,7 +58,7 @@ class CarController
     public function searchAddress()
     {
         $search_params = [];
-        
+
         if (isset($_GET['address']) && !empty($_GET['address'])) {
             $search_params['address'] = $_GET['address'];
         }
@@ -113,6 +117,19 @@ class CarController
             header('Location: ' . BASE_URL . '/auth/login');
             exit;
         }
+        $ownerId = $_SESSION['user_id'];
+        // Check if the owner has an active contract using the service
+        if (!$this->carOwnerContractService->hasAnyContractForOwner($ownerId)) {
+            $_SESSION['error'] = "Bạn cần có hợp đồng để đăng xe.";
+            header('Location: ' . BASE_URL . '/cars/add'); // Redirect to manage contracts or a relevant page
+            exit;
+            if (!$this->carOwnerContractService->hasActiveContractForOwner($ownerId)) {
+                $_SESSION['error'] = "Bạn cần có hợp đồng chủ xe còn hiệu lực để đăng tải xe.";
+                header('Location: ' . BASE_URL . '/cars/add'); // Redirect to manage contracts or a relevant page
+                exit;
+            }
+        }
+
 
         // Validate form data
         $required_fields = ['brand', 'model', 'year', 'car_type', 'seats', 'price_per_day', 'address', 'latitude', 'longitude', 'description'];

@@ -205,6 +205,14 @@ switch ($controller_name) {
                 $booking_controller = new BookingController($db);
                 $booking_controller->ownerBookings();
                 break;
+            case 'contracts':
+                $controller->manageContracts();
+                break;
+            case 'add_contract':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $controller->createContract();
+                }
+                break;
             case 'revenue':
                 $controller->viewRevenue();
                 break;
@@ -225,6 +233,9 @@ switch ($controller_name) {
                 break;
             case 'users':
                 $controller->manageUsers();
+                break;
+            case 'contracts':
+                $controller->carOwnerContractService();
                 break;
             case 'cars':
                 $controller->manageCars();
