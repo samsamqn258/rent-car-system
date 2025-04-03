@@ -31,6 +31,11 @@
               <i class="fas fa-chart-bar me-2"></i> Thống kê doanh thu
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/contracts">
+              <i class="fas fa-chart-bar me-2"></i> Quản lý hợp đồng
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -99,87 +104,88 @@
               </thead>
               <tbody>
                 <?php if (empty($promotions)): ?>
-                <tr>
-                  <td colspan="7" class="text-center">Không có mã khuyến mãi nào.</td>
-                </tr>
+                  <tr>
+                    <td colspan="7" class="text-center">Không có mã khuyến mãi nào.</td>
+                  </tr>
                 <?php else: ?>
-                <?php
-                                    $current_date = date('Y-m-d H:i:s');
-                                    foreach ($promotions as $promotion):
-                                        // Determine promotion time status
-                                        $time_status = 'expired';
-                                        if ($promotion['start_date'] > $current_date) {
-                                            $time_status = 'upcoming';
-                                        } else if ($promotion['end_date'] > $current_date) {
-                                            $time_status = 'current';
-                                        }
-                                    ?>
-                <tr data-status="<?php echo $promotion['status']; ?>" data-time="<?php echo $time_status; ?>"
-                  data-search="<?php echo strtolower($promotion['code']); ?>">
-                  <td><?php echo $promotion['id']; ?></td>
-                  <td>
-                    <span class="badge bg-dark"><?php echo $promotion['code']; ?></span>
-                  </td>
-                  <td><?php echo $promotion['discount_percentage']; ?>%</td>
-                  <td>
-                    <div>Từ: <?php echo date('d/m/Y H:i', strtotime($promotion['start_date'])); ?></div>
-                    <div>Đến: <?php echo date('d/m/Y H:i', strtotime($promotion['end_date'])); ?></div>
-                  </td>
-                  <td>
-                    <?php if ($promotion['status'] == 'active'): ?>
-                    <span class="badge bg-success">Hoạt động</span>
-                    <?php else: ?>
-                    <span class="badge bg-secondary">Không hoạt động</span>
-                    <?php endif; ?>
+                  <?php
+                  $current_date = date('Y-m-d H:i:s');
+                  foreach ($promotions as $promotion):
+                    // Determine promotion time status
+                    $time_status = 'expired';
+                    if ($promotion['start_date'] > $current_date) {
+                      $time_status = 'upcoming';
+                    } else if ($promotion['end_date'] > $current_date) {
+                      $time_status = 'current';
+                    }
+                  ?>
+                    <tr data-status="<?php echo $promotion['status']; ?>" data-time="<?php echo $time_status; ?>"
+                      data-search="<?php echo strtolower($promotion['code']); ?>">
+                      <td><?php echo $promotion['id']; ?></td>
+                      <td>
+                        <span class="badge bg-dark"><?php echo $promotion['code']; ?></span>
+                      </td>
+                      <td><?php echo $promotion['discount_percentage']; ?>%</td>
+                      <td>
+                        <div>Từ: <?php echo date('d/m/Y H:i', strtotime($promotion['start_date'])); ?></div>
+                        <div>Đến: <?php echo date('d/m/Y H:i', strtotime($promotion['end_date'])); ?></div>
+                      </td>
+                      <td>
+                        <?php if ($promotion['status'] == 'active'): ?>
+                          <span class="badge bg-success">Hoạt động</span>
+                        <?php else: ?>
+                          <span class="badge bg-secondary">Không hoạt động</span>
+                        <?php endif; ?>
 
-                    <?php if ($time_status == 'current'): ?>
-                    <span class="badge bg-primary">Đang diễn ra</span>
-                    <?php elseif ($time_status == 'upcoming'): ?>
-                    <span class="badge bg-info text-dark">Sắp tới</span>
-                    <?php else: ?>
-                    <span class="badge bg-danger">Đã hết hạn</span>
-                    <?php endif; ?>
-                  </td>
-                  <td><?php echo date('d/m/Y', strtotime($promotion['created_at'])); ?></td>
-                  <td>
-                    <div class="btn-group">
-                      <a href="<?php echo BASE_URL; ?>/admin/promotions/edit/<?php echo $promotion['id']; ?>"
-                        class="btn btn-sm btn-primary">
-                        <i class="fas fa-edit"></i>
-                      </a>
-                      <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#deleteModal<?php echo $promotion['id']; ?>">
-                        <i class="fas fa-trash"></i>
-                      </button>
+                        <?php if ($time_status == 'current'): ?>
+                          <span class="badge bg-primary">Đang diễn ra</span>
+                        <?php elseif ($time_status == 'upcoming'): ?>
+                          <span class="badge bg-info text-dark">Sắp tới</span>
+                        <?php else: ?>
+                          <span class="badge bg-danger">Đã hết hạn</span>
+                        <?php endif; ?>
+                      </td>
+                      <td><?php echo date('d/m/Y', strtotime($promotion['created_at'])); ?></td>
+                      <td>
+                        <div class="btn-group">
+                          <a href="<?php echo BASE_URL; ?>/admin/promotions/edit/<?php echo $promotion['id']; ?>"
+                            class="btn btn-sm btn-primary">
+                            <i class="fas fa-edit"></i>
+                          </a>
+                          <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal<?php echo $promotion['id']; ?>">
+                            <i class="fas fa-trash"></i>
+                          </button>
 
-                      <!-- Delete Modal -->
-                      <div class="modal fade" id="deleteModal<?php echo $promotion['id']; ?>" tabindex="-1"
-                        aria-labelledby="deleteModalLabel<?php echo $promotion['id']; ?>" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="deleteModalLabel<?php echo $promotion['id']; ?>">Xóa mã khuyến
-                                mãi</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <p>Bạn có chắc chắn muốn xóa mã khuyến mãi
-                                <strong><?php echo $promotion['code']; ?></strong>?</p>
-                              <p class="text-danger">Hành động này không thể hoàn tác.</p>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                              <a href="<?php echo BASE_URL; ?>/admin/promotions/delete/<?php echo $promotion['id']; ?>"
-                                class="btn btn-danger">Xóa</a>
+                          <!-- Delete Modal -->
+                          <div class="modal fade" id="deleteModal<?php echo $promotion['id']; ?>" tabindex="-1"
+                            aria-labelledby="deleteModalLabel<?php echo $promotion['id']; ?>" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="deleteModalLabel<?php echo $promotion['id']; ?>">Xóa mã khuyến
+                                    mãi</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <p>Bạn có chắc chắn muốn xóa mã khuyến mãi
+                                    <strong><?php echo $promotion['code']; ?></strong>?
+                                  </p>
+                                  <p class="text-danger">Hành động này không thể hoàn tác.</p>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                  <a href="<?php echo BASE_URL; ?>/admin/promotions/delete/<?php echo $promotion['id']; ?>"
+                                    class="btn btn-danger">Xóa</a>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <?php endforeach; ?>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
                 <?php endif; ?>
               </tbody>
             </table>
@@ -191,82 +197,82 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Filtering functionality
-  const statusFilter = document.getElementById('statusFilter');
-  const timeFilter = document.getElementById('timeFilter');
-  const searchInput = document.getElementById('searchInput');
-  const resetButton = document.getElementById('resetFilters');
-  const rows = document.querySelectorAll('#promotionsTable tbody tr');
+  document.addEventListener('DOMContentLoaded', function() {
+    // Filtering functionality
+    const statusFilter = document.getElementById('statusFilter');
+    const timeFilter = document.getElementById('timeFilter');
+    const searchInput = document.getElementById('searchInput');
+    const resetButton = document.getElementById('resetFilters');
+    const rows = document.querySelectorAll('#promotionsTable tbody tr');
 
-  function applyFilters() {
-    const statusValue = statusFilter.value;
-    const timeValue = timeFilter.value;
-    const searchValue = searchInput.value.toLowerCase();
+    function applyFilters() {
+      const statusValue = statusFilter.value;
+      const timeValue = timeFilter.value;
+      const searchValue = searchInput.value.toLowerCase();
 
-    rows.forEach(row => {
-      if (!row.hasAttribute('data-status')) return; // Skip message row
+      rows.forEach(row => {
+        if (!row.hasAttribute('data-status')) return; // Skip message row
 
-      const status = row.dataset.status;
-      const time = row.dataset.time;
-      const searchText = row.dataset.search;
+        const status = row.dataset.status;
+        const time = row.dataset.time;
+        const searchText = row.dataset.search;
 
-      const matchesStatus = statusValue === 'all' || status === statusValue;
-      const matchesTime = timeValue === 'all' || time === timeValue;
-      const matchesSearch = searchValue === '' || searchText.includes(searchValue);
+        const matchesStatus = statusValue === 'all' || status === statusValue;
+        const matchesTime = timeValue === 'all' || time === timeValue;
+        const matchesSearch = searchValue === '' || searchText.includes(searchValue);
 
-      if (matchesStatus && matchesTime && matchesSearch) {
-        row.style.display = '';
-      } else {
-        row.style.display = 'none';
-      }
-    });
-  }
-
-  statusFilter.addEventListener('change', applyFilters);
-  timeFilter.addEventListener('change', applyFilters);
-  searchInput.addEventListener('input', applyFilters);
-
-  resetButton.addEventListener('click', function() {
-    statusFilter.value = 'all';
-    timeFilter.value = 'all';
-    searchInput.value = '';
-    applyFilters();
-  });
-
-  // Export to CSV functionality
-  document.getElementById('exportToCSV').addEventListener('click', function() {
-    const table = document.getElementById('promotionsTable');
-    const rows = table.querySelectorAll('tr');
-
-    let csv = [];
-    for (let i = 0; i < rows.length; i++) {
-      const row = [],
-        cols = rows[i].querySelectorAll('td, th');
-
-      for (let j = 0; j < cols.length; j++) {
-        // Skip the action column
-        if (j === cols.length - 1) continue;
-
-        // Get text content, clean it up
-        let data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').trim();
-
-        // Escape double quotes and wrap with quotes
-        data = data.replace(/"/g, '""');
-        row.push('"' + data + '"');
-      }
-
-      csv.push(row.join(','));
+        if (matchesStatus && matchesTime && matchesSearch) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
     }
 
-    const csvString = csv.join('\n');
-    const a = document.createElement('a');
-    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvString);
-    a.target = '_blank';
-    a.download = 'promotions_data.csv';
-    a.click();
+    statusFilter.addEventListener('change', applyFilters);
+    timeFilter.addEventListener('change', applyFilters);
+    searchInput.addEventListener('input', applyFilters);
+
+    resetButton.addEventListener('click', function() {
+      statusFilter.value = 'all';
+      timeFilter.value = 'all';
+      searchInput.value = '';
+      applyFilters();
+    });
+
+    // Export to CSV functionality
+    document.getElementById('exportToCSV').addEventListener('click', function() {
+      const table = document.getElementById('promotionsTable');
+      const rows = table.querySelectorAll('tr');
+
+      let csv = [];
+      for (let i = 0; i < rows.length; i++) {
+        const row = [],
+          cols = rows[i].querySelectorAll('td, th');
+
+        for (let j = 0; j < cols.length; j++) {
+          // Skip the action column
+          if (j === cols.length - 1) continue;
+
+          // Get text content, clean it up
+          let data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').trim();
+
+          // Escape double quotes and wrap with quotes
+          data = data.replace(/"/g, '""');
+          row.push('"' + data + '"');
+        }
+
+        csv.push(row.join(','));
+      }
+
+      const csvString = csv.join('\n');
+      const a = document.createElement('a');
+      a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvString);
+      a.target = '_blank';
+      a.download = 'promotions_data.csv';
+      a.click();
+    });
   });
-});
 </script>
 
 <?php include 'views/shared/footer.php'; ?>

@@ -4,23 +4,29 @@ require_once 'models/Car.php';
 require_once 'models/Booking.php';
 require_once 'models/Promotion.php';
 require_once 'utils/Validator.php';
-
+require_once 'services/CarOwnerContractService.php';
 class AdminController
 {
     private $db;
     private $validator;
-
+    private $carOwnerContractService;
     public function __construct($db)
     {
         $this->db = $db;
         $this->validator = new Validator();
-
+        $this->carOwnerContractService = new CarOwnerContractService($db);
         // Check if user is admin
         if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'admin') {
             $_SESSION['error'] = "Bạn không có quyền truy cập trang này.";
             header('Location: ' . BASE_URL . '/auth/login');
             exit;
         }
+    }
+
+    public function carOwnerContractService()
+    {
+        $contracts = $this->carOwnerContractService->getContractsWithOwnerName();
+        include 'views/admin/contracts.php';
     }
 
     // Show admin dashboard

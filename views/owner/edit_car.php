@@ -23,6 +23,9 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
           <a href="<?php echo BASE_URL; ?>/owner/revenue?period=week" class="list-group-item list-group-item-action">
             <i class="fas fa-chart-line me-2"></i> Doanh thu
           </a>
+          <a href="<?php echo BASE_URL; ?>/owner/contracts" class="list-group-item list-group-item-action">
+            <i class="fas fa-chart-line me-2"></i> Hợp đồng của tôi
+          </a>
         </div>
       </div>
     </div>
