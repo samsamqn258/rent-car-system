@@ -54,7 +54,7 @@ class CarController
     public function searchAddress()
     {
         $search_params = [];
-        
+
         if (isset($_GET['address']) && !empty($_GET['address'])) {
             $search_params['address'] = $_GET['address'];
         }
