@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
     <!-- Sidebar -->
     <div class="col-md-3">
       <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header text-white" style="background-color: #5fcf86;">
           <h5 class="mb-0">Quản lý chủ xe</h5>
         </div>
         <div class="list-group list-group-flush">
@@ -33,7 +33,7 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
     <!-- Main Content -->
     <div class="col-md-9">
       <div class="card">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header text-white" style="background-color: #5fcf86;">
           <h3 class="mb-0">Thêm xe mới</h3>
         </div>
         <div class="card-body">
@@ -166,14 +166,14 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
 
             <div id="imagePreview" class="mb-3 row"></div>
 
-            <div class="alert alert-info">
+            <div class="alert alert-success">
               <h6 class="alert-heading"><i class="fas fa-info-circle me-2"></i> Lưu ý quan trọng:</h6>
               <p class="mb-0">Xe của bạn sẽ được kiểm duyệt bởi quản trị viên trước khi hiển thị trên hệ thống. Thông
                 thường quá trình này mất khoảng 24-48 giờ.</p>
             </div>
 
             <div class="d-grid gap-2 mt-4">
-              <button type="submit" class="btn btn-primary btn-lg">Đăng xe</button>
+              <button type="submit" class="btn text-white btn-lg" style="background-color: #5fcf86;">Đăng xe</button>
             </div>
           </form>
         </div>

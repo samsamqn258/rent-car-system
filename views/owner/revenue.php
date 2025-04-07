@@ -5,7 +5,7 @@
     <!-- Sidebar -->
     <div class="col-md-3">
       <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header text-white" style="background-color: #5fcf86;">
           <h5 class="mb-0">Quản lý chủ xe</h5>
         </div>
         <div class="list-group list-group-flush">
@@ -145,71 +145,71 @@
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
           <h5 class="card-title mb-0">Doanh thu theo xe</h5>
-          <button class="btn btn-sm btn-outline-primary" id="exportCarRevenue">
+          <button class="btn btn-sm btn-outline-success" id="exportCarRevenue">
             <i class="fas fa-download me-1"></i> Xuất báo cáo
           </button>
         </div>
         <div class="card-body">
           <?php if (empty($car_revenue)): ?>
-          <div class="alert alert-info mb-0">
-            <i class="fas fa-info-circle me-2"></i> Chưa có dữ liệu doanh thu cho các xe trong thời gian này.
-          </div>
+            <div class="alert alert-success mb-0">
+              <i class="fas fa-info-circle me-2"></i> Chưa có dữ liệu doanh thu cho các xe trong thời gian này.
+            </div>
           <?php else: ?>
-          <div class="table-responsive">
-            <table class="table table-hover" id="carRevenueTable">
-              <thead class="table-light">
-                <tr>
-                  <th>Xe</th>
-                  <th>Số lượt thuê</th>
-                  <th>Tổng ngày thuê</th>
-                  <th>Doanh thu</th>
-                  <th>Tỷ lệ</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
+            <div class="table-responsive">
+              <table class="table table-hover" id="carRevenueTable">
+                <thead class="table-light">
+                  <tr>
+                    <th>Xe</th>
+                    <th>Số lượt thuê</th>
+                    <th>Tổng ngày thuê</th>
+                    <th>Doanh thu</th>
+                    <th>Tỷ lệ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
                   $total_revenue = array_sum(array_column($car_revenue, 'revenue'));
                   foreach ($car_revenue as $revenue):
                   ?>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <img src="<?php echo BASE_URL . '/' . ($revenue['car_image'] ?? 'default_image.jpg'); ?>"
-                        alt="<?php echo ($revenue['car_brand'] ?? 'Unknown') . ' ' . ($revenue['car_model'] ?? 'Unknown'); ?>"
-                        class="me-2 rounded" style="width: 40px; height: 30px; object-fit: cover;">
-                      <div>
-                        <div>
-                          <?php
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <img src="<?php echo BASE_URL . '/' . ($revenue['car_image'] ?? 'default_image.jpg'); ?>"
+                            alt="<?php echo ($revenue['car_brand'] ?? 'Unknown') . ' ' . ($revenue['car_model'] ?? 'Unknown'); ?>"
+                            class="me-2 rounded" style="width: 40px; height: 30px; object-fit: cover;">
+                          <div>
+                            <div>
+                              <?php
                               echo ($revenue['brand'] ?? 'Unknown') . ' ' . ($revenue['model'] ?? 'Unknown');
                               ?>
+                            </div>
+                            <small
+                              class="text-muted"><?php echo $revenue['car_type'] == 'electric' ? 'Xe điện' : ($revenue['car_type'] == 'gasoline' ? 'Xe xăng' : 'Xe dầu'); ?>,
+                              <?php echo $revenue['seats']; ?> chỗ</small>
+                          </div>
                         </div>
-                        <small
-                          class="text-muted"><?php echo $revenue['car_type'] == 'electric' ? 'Xe điện' : ($revenue['car_type'] == 'gasoline' ? 'Xe xăng' : 'Xe dầu'); ?>,
-                          <?php echo $revenue['seats']; ?> chỗ</small>
-                      </div>
-                    </div>
-                  </td>
-                  <td><?php echo $revenue['bookings']; ?></td>
-                  <td><?php echo $revenue['total_days']; ?></td>
-                  <td><?php echo number_format($revenue['revenue'], 0, ',', '.'); ?> VND</td>
-                  <td>
-                    <?php
+                      </td>
+                      <td><?php echo $revenue['bookings']; ?></td>
+                      <td><?php echo $revenue['total_days']; ?></td>
+                      <td><?php echo number_format($revenue['revenue'], 0, ',', '.'); ?> VND</td>
+                      <td>
+                        <?php
                         $percentage = $total_revenue > 0 ? ($revenue['revenue'] / $total_revenue) * 100 : 0;
                         ?>
-                    <div class="d-flex align-items-center">
-                      <div class="progress flex-grow-1 me-2" style="height: 8px;">
-                        <div class="progress-bar bg-primary" role="progressbar"
-                          style="width: <?php echo $percentage; ?>%" aria-valuenow="<?php echo $percentage; ?>"
-                          aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <span><?php echo round($percentage, 1); ?>%</span>
-                    </div>
-                  </td>
-                </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
-          </div>
+                        <div class="d-flex align-items-center">
+                          <div class="progress flex-grow-1 me-2" style="height: 8px;">
+                            <div class="progress-bar bg-primary" role="progressbar"
+                              style="width: <?php echo $percentage; ?>%" aria-valuenow="<?php echo $percentage; ?>"
+                              aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                          <span><?php echo round($percentage, 1); ?>%</span>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+            </div>
           <?php endif; ?>
         </div>
       </div>
@@ -221,129 +221,129 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Period filter change
-  const periodFilter = document.getElementById('periodFilter');
-  const yearFilter = document.getElementById('yearFilter');
+  document.addEventListener('DOMContentLoaded', function() {
+    // Period filter change
+    const periodFilter = document.getElementById('periodFilter');
+    const yearFilter = document.getElementById('yearFilter');
 
-  function updateFilters() {
-    const period = periodFilter.value;
-    const year = yearFilter.value;
-    window.location.href = `<?php echo BASE_URL; ?>/owner/revenue?period=${period}&year=${year}`;
-  }
+    function updateFilters() {
+      const period = periodFilter.value;
+      const year = yearFilter.value;
+      window.location.href = `<?php echo BASE_URL; ?>/owner/revenue?period=${period}&year=${year}`;
+    }
 
-  periodFilter.addEventListener('change', updateFilters);
-  yearFilter.addEventListener('change', updateFilters);
+    periodFilter.addEventListener('change', updateFilters);
+    yearFilter.addEventListener('change', updateFilters);
 
-  // Revenue Chart
-  const ctx = document.getElementById('revenueChart').getContext('2d');
-  const revenueChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: <?php echo json_encode($monthly_stats['months']); ?>,
-      datasets: [{
-        label: 'Doanh thu (VND)',
-        data: <?php echo json_encode($monthly_stats['revenue']); ?>,
-        backgroundColor: 'rgba(13, 110, 253, 0.5)',
-        borderColor: 'rgba(13, 110, 253, 1)',
-        borderWidth: 1
-      }, {
-        label: 'Số đơn thuê',
-        data: <?php echo json_encode($monthly_stats['bookings']); ?>,
-        backgroundColor: 'rgba(25, 135, 84, 0.5)',
-        borderColor: 'rgba(25, 135, 84, 1)',
-        borderWidth: 1,
-        type: 'line',
-        yAxisID: 'y1'
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: 'Doanh thu (VND)'
+    // Revenue Chart
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+    const revenueChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: <?php echo json_encode($monthly_stats['months']); ?>,
+        datasets: [{
+          label: 'Doanh thu (VND)',
+          data: <?php echo json_encode($monthly_stats['revenue']); ?>,
+          backgroundColor: 'rgba(13, 110, 253, 0.5)',
+          borderColor: 'rgba(13, 110, 253, 1)',
+          borderWidth: 1
+        }, {
+          label: 'Số đơn thuê',
+          data: <?php echo json_encode($monthly_stats['bookings']); ?>,
+          backgroundColor: 'rgba(25, 135, 84, 0.5)',
+          borderColor: 'rgba(25, 135, 84, 1)',
+          borderWidth: 1,
+          type: 'line',
+          yAxisID: 'y1'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Doanh thu (VND)'
+            },
+            ticks: {
+              callback: function(value) {
+                return value.toLocaleString('vi-VN') + ' VND';
+              }
+            }
           },
-          ticks: {
-            callback: function(value) {
-              return value.toLocaleString('vi-VN') + ' VND';
+          y1: {
+            position: 'right',
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Số đơn thuê'
+            },
+            grid: {
+              drawOnChartArea: false
             }
           }
         },
-        y1: {
-          position: 'right',
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: 'Số đơn thuê'
-          },
-          grid: {
-            drawOnChartArea: false
-          }
-        }
-      },
-      plugins: {
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              let label = context.dataset.label || '';
-              if (label) {
-                label += ': ';
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                let label = context.dataset.label || '';
+                if (label) {
+                  label += ': ';
+                }
+                if (context.datasetIndex === 0) {
+                  label += context.raw.toLocaleString('vi-VN') + ' VND';
+                } else {
+                  label += context.raw;
+                }
+                return label;
               }
-              if (context.datasetIndex === 0) {
-                label += context.raw.toLocaleString('vi-VN') + ' VND';
-              } else {
-                label += context.raw;
-              }
-              return label;
             }
           }
         }
       }
-    }
-  });
+    });
 
-  // Export car revenue data
-  document.getElementById('exportCarRevenue').addEventListener('click', function() {
-    const table = document.getElementById('carRevenueTable');
-    if (!table) return;
+    // Export car revenue data
+    document.getElementById('exportCarRevenue').addEventListener('click', function() {
+      const table = document.getElementById('carRevenueTable');
+      if (!table) return;
 
-    let csv = [];
-    const rows = table.querySelectorAll('tr');
+      let csv = [];
+      const rows = table.querySelectorAll('tr');
 
-    for (let i = 0; i < rows.length; i++) {
-      const row = [],
-        cols = rows[i].querySelectorAll('td, th');
+      for (let i = 0; i < rows.length; i++) {
+        const row = [],
+          cols = rows[i].querySelectorAll('td, th');
 
-      for (let j = 0; j < cols.length; j++) {
-        // Clean the text content to remove extra spaces and line breaks
-        let data = cols[j].textContent.replace(/(\r\n|\n|\r)/gm, '').trim();
+        for (let j = 0; j < cols.length; j++) {
+          // Clean the text content to remove extra spaces and line breaks
+          let data = cols[j].textContent.replace(/(\r\n|\n|\r)/gm, '').trim();
 
-        // Escape double quotes
-        data = data.replace(/"/g, '""');
+          // Escape double quotes
+          data = data.replace(/"/g, '""');
 
-        // Add the data to the row array, enclosed in double quotes
-        row.push('"' + data + '"');
+          // Add the data to the row array, enclosed in double quotes
+          row.push('"' + data + '"');
+        }
+
+        csv.push(row.join(','));
       }
 
-      csv.push(row.join(','));
-    }
+      // Create CSV file
+      const csvContent = 'data:text/csv;charset=utf-8,' + csv.join('\n');
+      const encodedUri = encodeURI(csvContent);
 
-    // Create CSV file
-    const csvContent = 'data:text/csv;charset=utf-8,' + csv.join('\n');
-    const encodedUri = encodeURI(csvContent);
-
-    // Create download link and click it
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', 'doanh_thu_theo_xe.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      // Create download link and click it
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', 'doanh_thu_theo_xe.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
   });
-});
 </script>
 
 <?php include 'views/shared/footer.php'; ?>

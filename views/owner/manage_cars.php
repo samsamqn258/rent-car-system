@@ -5,7 +5,7 @@
         <!-- Sidebar -->
         <div class="col-md-3">
             <div class="card mb-4">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header  text-white" style="background-color: #5fcf86;">
                     <h5 class="mb-0">Quản lý chủ xe</h5>
                 </div>
                 <div class="list-group list-group-flush">
@@ -32,7 +32,7 @@
         <div class="col-md-9">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2>Quản lý xe</h2>
-                <a href="<?php echo BASE_URL; ?>/cars/add" class="btn btn-primary">
+                <a href="<?php echo BASE_URL; ?>/cars/add" class="btn text-white" style="background-color: #5fcf86;">
                     <i class="fas fa-plus-circle me-2"></i> Đăng xe mới
                 </a>
             </div>
@@ -122,12 +122,12 @@
                                     </div>
 
                                     <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <div class="car-price text-primary fw-bold">
+                                        <div class="car-price fw-bold" style="color: #5fcf86;">
                                             <?php echo number_format($car['price_per_day'], 0, ',', '.'); ?> VND/ngày
                                         </div>
                                         <div class="car-rating">
                                             <i class="fas fa-star text-warning"></i>
-                                            <span><?php echo $car['avg_rating'] ? number_format($car['avg_rating'], 1) : 'N/A'; ?></span>
+                                            <span><?php echo $car['avg_rating'] ? number_format($car['avg_rating'], 1) : '5'; ?></span>
                                             <small class="text-muted">(<?php echo $car['review_count']; ?>)</small>
                                         </div>
                                     </div>
@@ -140,7 +140,7 @@
                                 <div class="card-footer bg-white">
                                     <div class="d-flex justify-content-between">
                                         <a href="<?php echo BASE_URL; ?>/cars/details/<?php echo $car['id']; ?>"
-                                            class="btn btn-sm btn-outline-primary">
+                                            class="btn btn-sm btn-outline-success">
                                             <i class="fas fa-eye me-1"></i> Xem
                                         </a>
                                         <a href="<?php echo BASE_URL; ?>/cars/edit/<?php echo $car['id']; ?>"

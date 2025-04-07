@@ -267,42 +267,6 @@
   </div>
 </div>
 
-<!-- Testimonials -->
-<div class="bg-light py-5 mt-5">
-  <div class="container">
-    <h2 class="text-center mb-5 heading-title">Khách hàng nói gì về chúng tôi</h2>
-
-    <div class="row">
-      <?php foreach ($testimonials as $testimonial): ?>
-        <div class="col-md-4 mb-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <img src="<?php echo BASE_URL; ?>/public/images/avatar/<?php echo $testimonial['avatar']; ?>"
-                  alt="<?php echo $testimonial['name']; ?>" class="rounded-circle me-3" width="60">
-                <div>
-                  <h5 class="mb-0"><?php echo $testimonial['name']; ?></h5>
-                  <div class="text-warning">
-                    <?php
-                    for ($i = 1; $i <= 5; $i++) {
-                      if ($i <= $testimonial['rating']) {
-                        echo '<i class="fas fa-star"></i>';
-                      } else {
-                        echo '<i class="far fa-star"></i>';
-                      }
-                    }
-                    ?>
-                  </div>
-                </div>
-              </div>
-              <p class="card-text">"<?php echo $testimonial['comment']; ?>"</p>
-            </div>
-          </div>
-        </div>
-      <?php endforeach; ?>
-    </div>
-  </div>
-</div>
 
 <!-- Become a Car Owner -->
 <div class="container mt-5 mb-5">
@@ -321,7 +285,8 @@
         style="background-color: #5fcf86; width: 100%">Đăng ký làm chủ xe</a>
     </div>
     <div class="col-md-6">
-      <img src="<?php echo BASE_URL; ?>/public/images/pexels-photo-1287351.jpeg" class="img-fluid" alt="Become an owner">
+      <img src="<?php echo BASE_URL; ?>/public/images/pngtree-cab-online-ordering-process-picture-image_8710879.png"
+        class="img-fluid" alt="Become an owner">
     </div>
   </div>
 </div>

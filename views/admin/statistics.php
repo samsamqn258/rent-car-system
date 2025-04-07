@@ -33,7 +33,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/contracts">
-              <i class="fas fa-chart-bar me-2"></i> Quản lý hợp đồng
+              <i class="fas fa-file-contract me-2"></i> Quản lý hợp đồng
             </a>
           </li>
         </ul>
@@ -73,11 +73,11 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="yearDropdown">
               <?php
-                            $current_year = date('Y');
-                            for ($y = $current_year; $y >= $current_year - 2; $y--) {
-                                echo '<li><a class="dropdown-item ' . ($year == $y ? 'active' : '') . '" href="' . BASE_URL . '/admin/statistics?period=' . $period . '&year=' . $y . '">' . $y . '</a></li>';
-                            }
-                            ?>
+              $current_year = date('Y');
+              for ($y = $current_year; $y >= $current_year - 2; $y--) {
+                echo '<li><a class="dropdown-item ' . ($year == $y ? 'active' : '') . '" href="' . BASE_URL . '/admin/statistics?period=' . $period . '&year=' . $y . '">' . $y . '</a></li>';
+              }
+              ?>
             </ul>
           </div>
         </div>
@@ -192,48 +192,48 @@
               </thead>
               <tbody>
                 <?php if (empty($car_revenue)): ?>
-                <tr>
-                  <td colspan="6" class="text-center">Không có dữ liệu doanh thu cho giai đoạn này.</td>
-                </tr>
+                  <tr>
+                    <td colspan="6" class="text-center">Không có dữ liệu doanh thu cho giai đoạn này.</td>
+                  </tr>
                 <?php else: ?>
-                <?php
-                                    $total_revenue = array_sum(array_column($car_revenue, 'revenue'));
-                                    foreach ($car_revenue as $revenue):
-                                    ?>
-                <tr class="search-row"
-                  data-search="<?php echo strtolower($revenue['brand'] . ' ' . $revenue['model']); ?>">
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <img src="<?php echo BASE_URL . '/' . $revenue['car_image']; ?>"
-                        alt="<?php echo $revenue['brand'] . ' ' . $revenue['model']; ?>" class="me-2 rounded"
-                        style="width: 40px; height: 30px; object-fit: cover;">
-                      <div>
-                        <div><?php echo $revenue['brand'] . ' ' . $revenue['model']; ?></div>
-                        <small
-                          class="text-muted"><?php echo $revenue['car_type'] == 'electric' ? 'Xe điện' : ($revenue['car_type'] == 'gasoline' ? 'Xe xăng' : 'Xe dầu'); ?>,
-                          <?php echo $revenue['seats']; ?> chỗ</small>
-                      </div>
-                    </div>
-                  </td>
-                  <td>Chủ xe #<?php echo $revenue['id']; ?></td>
-                  <td><?php echo $revenue['bookings']; ?></td>
-                  <td><?php echo $revenue['total_days']; ?></td>
-                  <td><?php echo number_format($revenue['revenue'], 0, ',', '.'); ?> VND</td>
-                  <td>
-                    <?php
-                                                $percentage = $total_revenue > 0 ? ($revenue['revenue'] / $total_revenue) * 100 : 0;
-                                                ?>
-                    <div class="d-flex align-items-center">
-                      <div class="progress flex-grow-1 me-2" style="height: 8px;">
-                        <div class="progress-bar bg-primary" role="progressbar"
-                          style="width: <?php echo $percentage; ?>%" aria-valuenow="<?php echo $percentage; ?>"
-                          aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <span><?php echo round($percentage, 1); ?>%</span>
-                    </div>
-                  </td>
-                </tr>
-                <?php endforeach; ?>
+                  <?php
+                  $total_revenue = array_sum(array_column($car_revenue, 'revenue'));
+                  foreach ($car_revenue as $revenue):
+                  ?>
+                    <tr class="search-row"
+                      data-search="<?php echo strtolower($revenue['brand'] . ' ' . $revenue['model']); ?>">
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <img src="<?php echo BASE_URL . '/' . $revenue['car_image']; ?>"
+                            alt="<?php echo $revenue['brand'] . ' ' . $revenue['model']; ?>" class="me-2 rounded"
+                            style="width: 40px; height: 30px; object-fit: cover;">
+                          <div>
+                            <div><?php echo $revenue['brand'] . ' ' . $revenue['model']; ?></div>
+                            <small
+                              class="text-muted"><?php echo $revenue['car_type'] == 'electric' ? 'Xe điện' : ($revenue['car_type'] == 'gasoline' ? 'Xe xăng' : 'Xe dầu'); ?>,
+                              <?php echo $revenue['seats']; ?> chỗ</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Chủ xe #<?php echo $revenue['id']; ?></td>
+                      <td><?php echo $revenue['bookings']; ?></td>
+                      <td><?php echo $revenue['total_days']; ?></td>
+                      <td><?php echo number_format($revenue['revenue'], 0, ',', '.'); ?> VND</td>
+                      <td>
+                        <?php
+                        $percentage = $total_revenue > 0 ? ($revenue['revenue'] / $total_revenue) * 100 : 0;
+                        ?>
+                        <div class="d-flex align-items-center">
+                          <div class="progress flex-grow-1 me-2" style="height: 8px;">
+                            <div class="progress-bar bg-primary" role="progressbar"
+                              style="width: <?php echo $percentage; ?>%" aria-valuenow="<?php echo $percentage; ?>"
+                              aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                          <span><?php echo round($percentage, 1); ?>%</span>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
                 <?php endif; ?>
               </tbody>
             </table>
@@ -246,106 +246,106 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Monthly Revenue Chart
-  const ctx = document.getElementById('revenueChart').getContext('2d');
-  const months = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9',
-    'Tháng 10', 'Tháng 11', 'Tháng 12'
-  ];
-  const revenueData = <?php echo json_encode(array_values($monthly_revenue)); ?>;
+  document.addEventListener('DOMContentLoaded', function() {
+    // Monthly Revenue Chart
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+    const months = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9',
+      'Tháng 10', 'Tháng 11', 'Tháng 12'
+    ];
+    const revenueData = <?php echo json_encode(array_values($monthly_revenue)); ?>;
 
-  const chart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: months,
-      datasets: [{
-        label: 'Doanh thu (VND)',
-        data: revenueData,
-        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            callback: function(value) {
-              return value.toLocaleString('vi-VN') + ' VND';
-            }
-          }
-        }
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Doanh thu (VND)',
+          data: revenueData,
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
       },
-      plugins: {
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              return context.dataset.label + ': ' + context.raw.toLocaleString('vi-VN') + ' VND';
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(value) {
+                return value.toLocaleString('vi-VN') + ' VND';
+              }
+            }
+          }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return context.dataset.label + ': ' + context.raw.toLocaleString('vi-VN') + ' VND';
+              }
             }
           }
         }
-      }
-    }
-  });
-
-  // Download chart as image
-  document.getElementById('downloadChart').addEventListener('click', function() {
-    const canvas = document.getElementById('revenueChart');
-    const image = canvas.toDataURL('image/png');
-    const link = document.createElement('a');
-    link.download = 'doanh-thu-thang-' + <?php echo $year; ?> + '.png';
-    link.href = image;
-    link.click();
-  });
-
-  // Search in car revenue table
-  document.getElementById('searchCarTable').addEventListener('keyup', function() {
-    const searchValue = this.value.toLowerCase();
-    const rows = document.querySelectorAll('.search-row');
-
-    rows.forEach(row => {
-      const searchText = row.dataset.search;
-
-      if (searchText.includes(searchValue)) {
-        row.style.display = '';
-      } else {
-        row.style.display = 'none';
       }
     });
-  });
 
-  // Export to CSV
-  document.getElementById('exportToCSV').addEventListener('click', function() {
-    const table = document.getElementById('carRevenueTable');
-    const rows = table.querySelectorAll('tr');
+    // Download chart as image
+    document.getElementById('downloadChart').addEventListener('click', function() {
+      const canvas = document.getElementById('revenueChart');
+      const image = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'doanh-thu-thang-' + <?php echo $year; ?> + '.png';
+      link.href = image;
+      link.click();
+    });
 
-    let csv = [];
-    for (let i = 0; i < rows.length; i++) {
-      const row = [],
-        cols = rows[i].querySelectorAll('td, th');
+    // Search in car revenue table
+    document.getElementById('searchCarTable').addEventListener('keyup', function() {
+      const searchValue = this.value.toLowerCase();
+      const rows = document.querySelectorAll('.search-row');
 
-      for (let j = 0; j < cols.length; j++) {
-        // Get text content, clean it up
-        let data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').trim();
+      rows.forEach(row => {
+        const searchText = row.dataset.search;
 
-        // Escape double quotes and wrap with quotes
-        data = data.replace(/"/g, '""');
-        row.push('"' + data + '"');
+        if (searchText.includes(searchValue)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+
+    // Export to CSV
+    document.getElementById('exportToCSV').addEventListener('click', function() {
+      const table = document.getElementById('carRevenueTable');
+      const rows = table.querySelectorAll('tr');
+
+      let csv = [];
+      for (let i = 0; i < rows.length; i++) {
+        const row = [],
+          cols = rows[i].querySelectorAll('td, th');
+
+        for (let j = 0; j < cols.length; j++) {
+          // Get text content, clean it up
+          let data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').trim();
+
+          // Escape double quotes and wrap with quotes
+          data = data.replace(/"/g, '""');
+          row.push('"' + data + '"');
+        }
+
+        csv.push(row.join(','));
       }
 
-      csv.push(row.join(','));
-    }
-
-    const csvString = csv.join('\n');
-    const a = document.createElement('a');
-    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvString);
-    a.target = '_blank';
-    a.download = 'doanh-thu-theo-xe-' + <?php echo $year; ?> + '.csv';
-    a.click();
+      const csvString = csv.join('\n');
+      const a = document.createElement('a');
+      a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvString);
+      a.target = '_blank';
+      a.download = 'doanh-thu-theo-xe-' + <?php echo $year; ?> + '.csv';
+      a.click();
+    });
   });
-});
 </script>
 
 <?php include 'views/shared/footer.php'; ?>

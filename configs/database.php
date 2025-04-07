@@ -1,21 +1,24 @@
 <?php
 require_once 'config.php';
 
-class Database {
+class Database
+{
     private $host;
     private $db_name;
     private $username;
     private $password;
     private $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->host = DB_HOST;
         $this->db_name = DB_NAME;
         $this->username = DB_USERNAME;
         $this->password = DB_PASSWORD;
     }
 
-    public function getConnection() {
+    public function getConnection()
+    {
         $this->conn = null;
 
         try {
