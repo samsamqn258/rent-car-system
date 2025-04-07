@@ -25,7 +25,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/statistics">
+            <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/statistics?period=week">
               <i class="fas fa-chart-bar me-2"></i> Thống kê doanh thu
             </a>
           </li>
@@ -34,6 +34,11 @@
               <i class="fas fa-file-contract me-2"></i> Quản lý hợp đồng
             </a>
           </li>
+          <li class="nav-item">
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/bookings">
+                            <i class="fas fa-users me-2"></i> Quản lý đơn thuê
+                        </a>
+                    </li>
         </ul>
       </div>
     </div>

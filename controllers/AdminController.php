@@ -5,16 +5,19 @@ require_once 'models/Booking.php';
 require_once 'models/Promotion.php';
 require_once 'utils/Validator.php';
 require_once 'services/CarOwnerContractService.php';
+require_once 'services/BookingService.php';
 class AdminController
 {
     private $db;
     private $validator;
     private $carOwnerContractService;
+    private $bookingService;
     public function __construct($db)
     {
         $this->db = $db;
         $this->validator = new Validator();
         $this->carOwnerContractService = new CarOwnerContractService($db);
+        $this->bookingService = new BookingService($this->db);
         // Check if user is admin
         if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'admin') {
             $_SESSION['error'] = "Bạn không có quyền truy cập trang này.";
@@ -464,5 +467,20 @@ class AdminController
         }
 
         return $car_revenue;
+    }
+    public function manageBookings()
+    {
+        // Kiểm tra quyền admin
+        if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'admin') {
+            $_SESSION['error'] = "Bạn không có quyền truy cập trang này.";
+            header('Location: ' . BASE_URL . '/auth/login');
+            exit;
+        }
+
+        // Lọc các booking đã thanh toán (status = 'paid')
+        $bookings = $this->bookingService->getAllPaidBookings();
+
+        // Pass data to the view
+        include 'views/admin/manage_bookings.php';
     }
 }

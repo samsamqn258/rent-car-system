@@ -240,6 +240,9 @@ switch ($controller_name) {
             case 'cars':
                 $controller->manageCars();
                 break;
+             case 'bookings':
+                    $controller->manageBookings();
+                    break;
             case 'promotions':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if ($param == 'add') {
