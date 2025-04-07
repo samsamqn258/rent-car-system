@@ -114,52 +114,53 @@
 
   <div class="row">
     <?php foreach ($featured_cars as $car): ?>
-      <a href="<?php echo BASE_URL; ?>/cars/details/<?php echo $car['id']; ?>" class="card-car col-md-3 mb-4">
-        <div class="card h-100">
-          <img src="<?php echo BASE_URL . '/' . $car['primary_image']; ?>" class="card-img-top"
-            alt="<?php echo $car['brand'] . ' ' . $car['model']; ?>" style="height: 200px; object-fit: contain;">
-          <!-- <div>
+    <a href="<?php echo BASE_URL; ?>/cars/details/<?php echo $car['id']; ?>" class="card-car col-md-3 mb-4">
+      <div class="card h-100">
+        <img src="<?php echo BASE_URL . '/' . $car['primary_image']; ?>" class="card-img-top"
+          alt="<?php echo $car['brand'] . ' ' . $car['model']; ?>" style="height: 200px; object-fit: contain;">
+        <!-- <div>
             <pre><?php print_r($car); ?></pre>
           </div> -->
-          <div class="card-body">
-            <h5 class="card-title"><?php echo $car['brand'] . ' ' . $car['model'] . ' (' . $car['year'] . ')'; ?></h5>
+        <div class="card-body">
+          <h5 class="card-title"><?php echo $car['brand'] . ' ' . $car['model'] . ' (' . $car['year'] . ')'; ?></h5>
 
 
-            <div class="car-specs">
-              <span class="badge bg-secondary me-1">
-                <i class="fas fa-car me-1"></i>
-                <?php echo $car['car_type'] == 'electric' ? 'Xe điện' : ($car['car_type'] == 'gasoline' ? 'Xe xăng' : 'Xe dầu'); ?>
-              </span>
-              <span class="badge bg-secondary me-1">
-                <i class="fas fa-user me-1"></i>
-                <?php echo $car['seats']; ?> chỗ
-              </span>
-            </div>
-
-            <div style="color: #767676; font-size: 0.875rem; margin-top: 10px;">
-              <img src="https://cdn0.iconfinder.com/data/icons/4web-3/139/location-512.png"
-                style="width:16px; height: 16px" />
-              <?php echo $car['address']; ?>
-
-            </div>
+          <div class="car-specs">
+            <span class="badge bg-secondary me-1">
+              <i class="fas fa-car me-1"></i>
+              <?php echo $car['car_type'] == 'electric' ? 'Xe điện' : ($car['car_type'] == 'gasoline' ? 'Xe xăng' : 'Xe dầu'); ?>
+            </span>
+            <span class="badge bg-secondary me-1">
+              <i class="fas fa-user me-1"></i>
+              <?php echo $car['seats']; ?> chỗ
+            </span>
           </div>
 
-          <div class=" card-footer">
-            <div class="d-flex align-items-center justify-content-between">
-              <div class="car-rating d-flex align-items-center">
-                <i class="fas fa-star text-warning"></i>
-                <p style=" margin-top: 1px; margin-left: 3px; margin-bottom: 0; color: #767676; font-size: 0.875rem">
-                  <?php echo $car['review_count'] === 0 ? "5.0" : $car['review_count']; ?>
-                </p>
-              </div>
+          <div style="color: #767676; font-size: 0.875rem; margin-top: 10px;">
+            <img src="https://cdn0.iconfinder.com/data/icons/4web-3/139/location-512.png"
+              style="width:16px; height: 16px" />
+            <?php echo $car['address']; ?>
 
-              <div class="car-price fw-bold " style="color: #5fcf86; font-size: 1rem">
-                <?php echo number_format($car['price_per_day'], 0, ',', '.'); ?> VND/ngày
-              </div>
+          </div>
+        </div>
+
+        <div class=" card-footer">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="car-rating d-flex align-items-center">
+              <i class="fas fa-star text-warning"></i>
+              <p style=" margin-top: 1px; margin-left: 3px; margin-bottom: 0; color: #767676; font-size: 0.875rem">
+                <?php echo $car['review_count'] === 0 ? "5" : min(5.0, floor($car['avg_rating'])); ?>
+              </p>
+
+            </div>
+
+            <div class="car-price fw-bold " style="color: #5fcf86; font-size: 1rem">
+              <?php echo number_format($car['price_per_day'], 0, ',', '.'); ?> VND/ngày
             </div>
           </div>
         </div>
-      </a>
+      </div>
+    </a>
     <?php endforeach; ?>
   </div>
 </div>
@@ -292,130 +293,130 @@
 </div>
 
 <style>
-  .heading-title {
-    font-size: 2rem;
-    font-weight: 600;
-  }
+.heading-title {
+  font-size: 2rem;
+  font-weight: 600;
+}
 
-  .heading-subtitle {
-    font-size: 1.2rem
-  }
+.heading-subtitle {
+  font-size: 1.2rem
+}
 
-  .hero-banner {
-    background-image: url('<?php echo BASE_URL; ?>/public/images/hero-banner.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 600px;
-    position: relative;
-    color: white;
-    display: flex;
-    align-items: center;
-  }
+.hero-banner {
+  background-image: url('<?php echo BASE_URL; ?>/public/images/hero-banner.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 600px;
+  position: relative;
+  color: white;
+  display: flex;
+  align-items: center;
+}
 
-  .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
-  .hero-content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-  }
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
 
-  .hero-title {
-    font-size: 4rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
+.hero-title {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
 
-  .hero-subtitle {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
+.hero-subtitle {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
 
-  .search-form-container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    width: 850px;
-    bottom: -110px;
-    z-index: 10;
-  }
+.search-form-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 850px;
+  bottom: -110px;
+  z-index: 10;
+}
 
-  .how-it-works-item {
-    padding: 20px;
-  }
+.how-it-works-item {
+  padding: 20px;
+}
 
-  .icon-container {
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-    line-height: 80px;
-    border-radius: 50%;
-    background-color: #f8f9fa;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  }
+.icon-container {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
 
-  /* Promotions */
-  .promotions {
-    margin-top: 100px;
-    padding-top: 80px;
-  }
+/* Promotions */
+.promotions {
+  margin-top: 100px;
+  padding-top: 80px;
+}
 
-  .card-car {
-    color: #000;
-    text-decoration: none;
-  }
+.card-car {
+  color: #000;
+  text-decoration: none;
+}
 
-  .category-card {
-    overflow: hidden;
-    border: none;
-    border-radius: 10px;
-  }
+.category-card {
+  overflow: hidden;
+  border: none;
+  border-radius: 10px;
+}
 
-  .category-card img {
-    height: 250px;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
+.category-card img {
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
 
-  .category-card:hover img {
-    transform: scale(1.05);
-  }
+.category-card:hover img {
+  transform: scale(1.05);
+}
 
-  .category-content {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 15px;
-    border-radius: 0 0 10px 10px;
-    width: 100%;
-  }
+.category-content {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 15px;
+  border-radius: 0 0 10px 10px;
+  width: 100%;
+}
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Set minimum end date based on start date
-    const startDateInput = document.getElementById('start_date');
-    const endDateInput = document.getElementById('end_date');
+document.addEventListener('DOMContentLoaded', function() {
+  // Set minimum end date based on start date
+  const startDateInput = document.getElementById('start_date');
+  const endDateInput = document.getElementById('end_date');
 
-    startDateInput.addEventListener('change', function() {
-      const startDate = new Date(this.value);
-      const nextDay = new Date(startDate);
-      nextDay.setDate(nextDay.getDate() + 1);
+  startDateInput.addEventListener('change', function() {
+    const startDate = new Date(this.value);
+    const nextDay = new Date(startDate);
+    nextDay.setDate(nextDay.getDate() + 1);
 
-      const formattedDate = nextDay.toISOString().split('T')[0];
-      endDateInput.min = formattedDate;
+    const formattedDate = nextDay.toISOString().split('T')[0];
+    endDateInput.min = formattedDate;
 
-      if (new Date(endDateInput.value) < nextDay) {
-        endDateInput.value = formattedDate;
-      }
-    });
+    if (new Date(endDateInput.value) < nextDay) {
+      endDateInput.value = formattedDate;
+    }
   });
+});
 </script>
 
 <?php include 'views/shared/footer.php'; ?>
