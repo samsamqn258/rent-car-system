@@ -43,7 +43,7 @@ class HomeController
     }
 
     // Get featured cars for homepage
-    private function getFeaturedCars($limit = 6)
+    private function getFeaturedCars($limit = 12)
     {
         $query = "SELECT c.*, u.fullname as owner_name, 
                 (SELECT image_path FROM car_images WHERE car_id = c.id AND is_primary = 1 LIMIT 1) as primary_image,
