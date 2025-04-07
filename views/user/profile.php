@@ -5,7 +5,7 @@
         <!-- Sidebar -->
         <div class="col-md-3">
             <div class="card mb-4">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header text-white" style="background-color: #5fcf86">
                     <h5 class="mb-0">Tài khoản của bạn</h5>
                 </div>
                 <div class="list-group list-group-flush">
@@ -37,7 +37,7 @@
         <!-- Main content -->
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header text-white" style="background-color: #5fcf86">
                     <h3 class="mb-0">Thông tin cá nhân</h3>
                 </div>
                 <div class="card-body">
@@ -80,7 +80,9 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="license" class="form-label">Số giấy phép lái xe</label>
-                                    <input type="text" class="form-control <?php echo empty($user['license']) ? 'border-danger' : ''; ?>" id="license" name="license" value="<?php echo isset($user['license']) ? $user['license'] : ''; ?>" required>
+                                    <input type="text" class="form-control <?php echo empty($user['license']) ? 'border-danger' : ''; ?>"
+                                        id="license" name="license" value="<?php echo isset($user['license']) ? $user['license'] : ''; ?>"
+                                        required>
                                     <?php if (empty($user['license'])): ?>
                                         <div class="text-danger mt-2">Hãy cập nhật giấy phép lái xe</div>
                                     <?php endif; ?>
@@ -104,7 +106,7 @@
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Cập nhật thông tin</button>
+                            <button type="submit" class="btn text-white" style="background-color: #5fcf86">Cập nhật thông tin</button>
                         </div>
                     </form>
                 </div>

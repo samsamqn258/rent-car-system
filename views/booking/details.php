@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header text-white" style="background-color: #5fcf86;">
           <h3 class="mb-0">Chi tiết đơn thuê xe #<?php echo $booking['id']; ?></h3>
         </div>
         <div class="card-body">
@@ -20,7 +20,7 @@
                 <div>
                   <h6><?php echo $booking['car_brand'] . ' ' . $booking['car_model']; ?></h6>
                   <a href="<?php echo BASE_URL; ?>/cars/details/<?php echo $booking['car_id']; ?>"
-                    class="btn btn-sm btn-outline-primary mt-1">
+                    class="btn btn-sm btn-outline-success mt-1">
                     <i class="fas fa-external-link-alt me-1"></i> Xem xe
                   </a>
                 </div>
@@ -117,7 +117,8 @@
               <table class="table table-borderless">
                 <tr>
                   <th style="width: 40%">Tổng tiền:</th>
-                  <td class="text-primary fw-bold"><?php echo number_format($booking['total_price'], 0, ',', '.'); ?>
+                  <td class="fw-bold" style="color: #5fcf86;">
+                    <?php echo number_format($booking['total_price'], 0, ',', '.'); ?>
                     VND</td>
                 </tr>
                 <tr>
@@ -140,23 +141,23 @@
                   <th>Trạng thái đặt xe:</th>
                   <td>
                     <?php
-                                        switch ($booking['booking_status']) {
-                                            case 'pending':
-                                                echo '<span class="badge bg-warning text-dark">Chờ xác nhận</span>';
-                                                break;
-                                            case 'confirmed':
-                                                echo '<span class="badge bg-primary">Đã xác nhận</span>';
-                                                break;
-                                            case 'completed':
-                                                echo '<span class="badge bg-success">Hoàn thành</span>';
-                                                break;
-                                            case 'canceled':
-                                                echo '<span class="badge bg-danger">Đã hủy</span>';
-                                                break;
-                                            default:
-                                                echo '<span class="badge bg-secondary">Không xác định</span>';
-                                        }
-                                        ?>
+                    switch ($booking['booking_status']) {
+                      case 'pending':
+                        echo '<span class="badge bg-warning text-dark">Chờ xác nhận</span>';
+                        break;
+                      case 'confirmed':
+                        echo '<span class="badge bg-primary">Đã xác nhận</span>';
+                        break;
+                      case 'completed':
+                        echo '<span class="badge bg-success">Hoàn thành</span>';
+                        break;
+                      case 'canceled':
+                        echo '<span class="badge bg-danger">Đã hủy</span>';
+                        break;
+                      default:
+                        echo '<span class="badge bg-secondary">Không xác định</span>';
+                    }
+                    ?>
                   </td>
                 </tr>
               </table>
@@ -174,7 +175,8 @@
               <?php if ($_SESSION['user_id'] == $booking['user_id']): ?>
               <!-- Customer actions -->
               <?php if ($booking['payment_status'] == 'pending'): ?>
-              <a href="<?php echo BASE_URL; ?>/booking/payment/<?php echo $booking['id']; ?>" class="btn btn-primary">
+              <a href="<?php echo BASE_URL; ?>/booking/payment/<?php echo $booking['id']; ?>" class="btn text-white"
+                style="background-color: #5fcf86;">
                 <i class="fas fa-credit-card me-1"></i> Thanh toán
               </a>
               <?php endif; ?>
@@ -235,7 +237,7 @@
 
       <!-- Important Information -->
       <div class="card">
-        <div class="card-header bg-warning text-dark">
+        <div class="card-header text-white" style="background-color: #5fcf86;">
           <h5 class="mb-0">Thông tin quan trọng</h5>
         </div>
         <div class="card-body">

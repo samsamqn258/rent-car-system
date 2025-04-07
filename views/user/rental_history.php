@@ -5,7 +5,7 @@
         <!-- Sidebar -->
         <div class="col-md-3">
             <div class="card mb-4">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header text-white" style="background-color: #5fcf86;">
                     <h5 class="mb-0">Tài khoản của bạn</h5>
                 </div>
                 <div class="list-group list-group-flush">
@@ -37,7 +37,7 @@
         <!-- Main Content -->
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header text-white" style="background-color: #5fcf86;">
                     <h3 class="mb-0">Lịch sử thuê xe</h3>
                 </div>
                 <div class="card-body">
@@ -76,7 +76,8 @@
                             <i class="fas fa-car-side fa-4x text-muted mb-3"></i>
                             <h4>Bạn chưa có lịch sử thuê xe</h4>
                             <p class="text-muted">Hãy thuê một chiếc xe và bắt đầu hành trình của bạn!</p>
-                            <a href="<?php echo BASE_URL; ?>/cars/search" class="btn btn-primary mt-2">
+                            <a href="<?php echo BASE_URL; ?>/cars/search" class="btn text-white mt-2"
+                                style="background-color: #5fcf86;">
                                 <i class="fas fa-search me-2"></i> Tìm xe ngay
                             </a>
                         </div>

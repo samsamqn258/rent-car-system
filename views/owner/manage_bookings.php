@@ -5,7 +5,7 @@
         <!-- Sidebar -->
         <div class="col-md-3">
             <div class="card mb-4">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header text-white" style="background-color: #5fcf86;">
                     <h5 class="mb-0">Quản lý chủ xe</h5>
                 </div>
                 <div class="list-group list-group-flush">

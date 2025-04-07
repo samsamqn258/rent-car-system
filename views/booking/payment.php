@@ -4,7 +4,7 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header text-white" style="background-color: #5fcf86;">
           <h3 class="mb-0">Thanh toán đặt xe</h3>
         </div>
         <div class="card-body">
@@ -43,14 +43,14 @@
             </div>
           </div>
 
-          <div class="alert alert-info mt-3">
+          <div class="alert alert-success mt-3">
             <p class="mb-0"><i class="fas fa-info-circle me-2"></i> Bạn sẽ được chuyển đến cổng thanh toán MoMo để hoàn
               tất thanh toán.</p>
           </div>
 
           <div class="mt-4 text-center">
             <a href="<?php echo BASE_URL; ?>/booking/process_payment/<?php echo $booking['id']; ?>"
-              class="btn btn-primary btn-lg">
+              class="btn text-white btn-lg" style="background-color: #5fcf86;">
               <i class="fas fa-credit-card me-2"></i> Thanh toán ngay
             </a>
             <a href="<?php echo BASE_URL; ?>/booking/details/<?php echo $booking['id']; ?>"
@@ -62,7 +62,7 @@
       </div>
 
       <div class="card mt-4">
-        <div class="card-header bg-info text-white">
+        <div class="card-header text-white" style="background-color: #5fcf86;">
           <h4 class="mb-0">Lưu ý khi thanh toán</h4>
         </div>
         <div class="card-body">
