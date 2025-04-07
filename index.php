@@ -243,19 +243,26 @@ switch ($controller_name) {
              case 'bookings':
                     $controller->manageBookings();
                     break;
-            case 'promotions':
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    if ($param == 'add') {
-                        $controller->addPromotion();
-                    } else if ($param == 'edit') {
-                        $controller->updatePromotion($param2);
-                    } else if ($param == 'delete') {
-                        $controller->deletePromotion($param2);
-                    }
-                } else {
-                    $controller->managePromotions();
-                }
-                break;
+                    case 'promotions':
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                            if ($param == 'add') {
+                                $controller->addPromotion();
+                            } else if ($param == 'edit') {
+                                $controller->updatePromotion($param2);
+                            } else if ($param == 'delete') {
+                                $controller->deletePromotion($param2);
+                            }
+                        } else {
+                            // Handle GET request
+                            if ($param == 'add') {
+                                $controller->showAddPromotionForm();
+                            } else if ($param == 'edit') {
+                                $controller->showEditPromotionForm($param2);
+                            } else {
+                                $controller->managePromotions();
+                            }
+                        }
+                        break;
             case 'statistics':
                 $controller->viewStatistics();
                 break;
