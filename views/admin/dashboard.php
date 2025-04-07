@@ -37,10 +37,10 @@
             </a>
           </li>
           <li class="nav-item">
-                        <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/bookings">
-                            <i class="fas fa-users me-2"></i> Quản lý đơn thuê
-                        </a>
-                    </li>
+            <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/bookings">
+              <i class="fas fa-users me-2"></i> Quản lý đơn thuê
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -136,7 +136,7 @@
               </div>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-            <a href="<?php echo BASE_URL; ?>/admin/bookings" class="text-white">Xem chi tiết</a>
+              <a href="<?php echo BASE_URL; ?>/admin/bookings" class="text-white">Xem chi tiết</a>
               <i class="fas fa-arrow-right text-dark"></i>
             </div>
           </div>
@@ -166,47 +166,47 @@
             </div>
             <div class="card-body p-0">
               <?php if (empty($pending_cars)): ?>
-                <div class="p-3 text-center text-muted">
-                  Không có xe nào đang chờ duyệt.
-                </div>
+              <div class="p-3 text-center text-muted">
+                Không có xe nào đang chờ duyệt.
+              </div>
               <?php else: ?>
-                <div class="table-responsive">
-                  <table class="table table-hover mb-0">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Xe</th>
-                        <th>Chủ xe</th>
-                        <th>Ngày đăng</th>
-                        <th>Hành động</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php foreach ($pending_cars as $car): ?>
-                        <tr>
-                          <td><?php echo $car['id']; ?></td>
-                          <td><?php echo $car['brand'] . ' ' . $car['model']; ?></td>
-                          <td><?php echo $car['owner_name']; ?></td>
-                          <td><?php echo date('d/m/Y', strtotime($car['created_at'])); ?></td>
-                          <td>
-                            <a href="<?php echo BASE_URL; ?>/cars/details/<?php echo $car['id']; ?>"
-                              class="btn btn-sm btn-info" target="_blank">
-                              <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="<?php echo BASE_URL; ?>/cars/approve/<?php echo $car['id']; ?>"
-                              class="btn btn-sm btn-success">
-                              <i class="fas fa-check"></i>
-                            </a>
-                            <a href="<?php echo BASE_URL; ?>/cars/reject/<?php echo $car['id']; ?>"
-                              class="btn btn-sm btn-danger">
-                              <i class="fas fa-times"></i>
-                            </a>
-                          </td>
-                        </tr>
-                      <?php endforeach; ?>
-                    </tbody>
-                  </table>
-                </div>
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Xe</th>
+                      <th>Chủ xe</th>
+                      <th>Ngày đăng</th>
+                      <th>Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($pending_cars as $car): ?>
+                    <tr>
+                      <td><?php echo $car['id']; ?></td>
+                      <td><?php echo $car['brand'] . ' ' . $car['model']; ?></td>
+                      <td><?php echo $car['owner_name']; ?></td>
+                      <td><?php echo date('d/m/Y', strtotime($car['created_at'])); ?></td>
+                      <td>
+                        <a href="<?php echo BASE_URL; ?>/cars/details/<?php echo $car['id']; ?>"
+                          class="btn btn-sm btn-info" target="_blank">
+                          <i class="fas fa-eye"></i>
+                        </a>
+                        <a href="<?php echo BASE_URL; ?>/cars/approve/<?php echo $car['id']; ?>"
+                          class="btn btn-sm btn-success">
+                          <i class="fas fa-check"></i>
+                        </a>
+                        <a href="<?php echo BASE_URL; ?>/cars/reject/<?php echo $car['id']; ?>"
+                          class="btn btn-sm btn-danger">
+                          <i class="fas fa-times"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
               <?php endif; ?>
             </div>
             <div class="card-footer text-center">
@@ -223,42 +223,42 @@
             </div>
             <div class="card-body p-0">
               <?php if (empty($recent_users)): ?>
-                <div class="p-3 text-center text-muted">
-                  Không có người dùng mới đăng ký gần đây.
-                </div>
+              <div class="p-3 text-center text-muted">
+                Không có người dùng mới đăng ký gần đây.
+              </div>
               <?php else: ?>
-                <div class="table-responsive">
-                  <table class="table table-hover mb-0">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Tên</th>
-                        <th>Email</th>
-                        <th>Vai trò</th>
-                        <th>Ngày đăng ký</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php foreach ($recent_users as $user): ?>
-                        <tr>
-                          <td><?php echo $user['id']; ?></td>
-                          <td><?php echo $user['fullname']; ?></td>
-                          <td><?php echo $user['email']; ?></td>
-                          <td>
-                            <?php if ($user['role'] == 'admin'): ?>
-                              <span class="badge bg-danger">Admin</span>
-                            <?php elseif ($user['role'] == 'owner'): ?>
-                              <span class="badge bg-primary">Chủ xe</span>
-                            <?php else: ?>
-                              <span class="badge bg-secondary">Người dùng</span>
-                            <?php endif; ?>
-                          </td>
-                          <td><?php echo date('d/m/Y', strtotime($user['created_at'])); ?></td>
-                        </tr>
-                      <?php endforeach; ?>
-                    </tbody>
-                  </table>
-                </div>
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Tên</th>
+                      <th>Email</th>
+                      <th>Vai trò</th>
+                      <th>Ngày đăng ký</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($recent_users as $user): ?>
+                    <tr>
+                      <td><?php echo $user['id']; ?></td>
+                      <td><?php echo $user['fullname']; ?></td>
+                      <td><?php echo $user['email']; ?></td>
+                      <td>
+                        <?php if ($user['role'] == 'admin'): ?>
+                        <span class="badge bg-danger">Admin</span>
+                        <?php elseif ($user['role'] == 'owner'): ?>
+                        <span class="badge bg-primary">Chủ xe</span>
+                        <?php else: ?>
+                        <span class="badge bg-secondary">Người dùng</span>
+                        <?php endif; ?>
+                      </td>
+                      <td><?php echo date('d/m/Y', strtotime($user['created_at'])); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
               <?php endif; ?>
             </div>
             <div class="card-footer text-center">
@@ -273,44 +273,44 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Revenue Chart
-    var ctx = document.getElementById('revenueChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
-        datasets: [{
-          label: 'Doanh thu (VND)',
-          data: <?php echo json_encode(array_values($monthly_revenue)); ?>,
-          backgroundColor: 'rgba(54, 162, 235, 0.5)',
-          borderColor: 'rgba(54, 162, 235, 1)',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              callback: function(value) {
-                return value.toLocaleString('vi-VN') + ' VND';
-              }
+document.addEventListener('DOMContentLoaded', function() {
+  // Revenue Chart
+  var ctx = document.getElementById('revenueChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+      datasets: [{
+        label: 'Doanh thu (VND)',
+        data: <?php echo json_encode(array_values($monthly_revenue)); ?>,
+        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: function(value) {
+              return value.toLocaleString('vi-VN') + ' VND';
             }
           }
-        },
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                return context.dataset.label + ': ' + context.raw.toLocaleString('vi-VN') + ' VND';
-              }
+        }
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return context.dataset.label + ': ' + context.raw.toLocaleString('vi-VN') + ' VND';
             }
           }
         }
       }
-    });
+    }
   });
+});
 </script>
 
 <?php include 'views/shared/footer.php'; ?>
