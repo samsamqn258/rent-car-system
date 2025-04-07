@@ -33,7 +33,8 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
     <!-- Main Content -->
     <div class="col-md-9">
       <div class="card">
-        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <div class="card-header text-white d-flex justify-content-between align-items-center"
+          style="background-color: #5fcf86;">
           <h3 class="mb-0">Chỉnh sửa thông tin xe</h3>
           <a href="<?php echo BASE_URL; ?>/owner/cars" class="btn btn-light btn-sm">
             <i class="fas fa-arrow-left me-1"></i> Quay lại
@@ -186,7 +187,7 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
                         style="height: 180px; object-fit: cover;">
                       <div class="card-body">
                         <?php if ($image['is_primary']): ?>
-                          <span class="badge bg-primary mb-2">Hình ảnh chính</span>
+                          <span class="badge text-white mb-2" style="background-color: #5fcf86;">Hình ảnh chính</span>
                         <?php else: ?>
                           <div class="form-check">
                             <input class="form-check-input" type="radio" name="primary_image"
@@ -223,7 +224,7 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
             <div id="imagePreview" class="mb-3 row"></div>
 
             <!-- Car Status Information -->
-            <div class="alert alert-info mt-3">
+            <div class="alert alert-success mt-3">
               <h6 class="alert-heading"><i class="fas fa-info-circle me-2"></i> Trạng thái xe:</h6>
               <p class="mb-0">
                 <?php
@@ -249,7 +250,8 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
 
             <!-- Submit Button -->
             <div class="d-grid gap-2 mt-4">
-              <button type="submit" class="btn btn-primary btn-lg">Cập nhật thông tin xe</button>
+              <button type="submit" class="btn text-white btn-lg" style="background-color: #5fcf86;">Cập nhật thông tin
+                xe</button>
             </div>
           </form>
         </div>

@@ -131,18 +131,18 @@
               </p>
 
               <?php
-                            $now = new DateTime();
-                            $start = new DateTime($promotion->start_date);
-                            $end = new DateTime($promotion->end_date);
+              $now = new DateTime();
+              $start = new DateTime($promotion->start_date);
+              $end = new DateTime($promotion->end_date);
 
-                            if ($now < $start) {
-                                echo '<div class="alert alert-info">Khuyến mãi sẽ bắt đầu trong ' . $now->diff($start)->days . ' ngày nữa.</div>';
-                            } else if ($now > $end) {
-                                echo '<div class="alert alert-danger">Khuyến mãi đã kết thúc ' . $now->diff($end)->days . ' ngày trước.</div>';
-                            } else {
-                                echo '<div class="alert alert-success">Khuyến mãi đang diễn ra và sẽ kết thúc trong ' . $now->diff($end)->days . ' ngày nữa.</div>';
-                            }
-                            ?>
+              if ($now < $start) {
+                echo '<div class="alert alert-info">Khuyến mãi sẽ bắt đầu trong ' . $now->diff($start)->days . ' ngày nữa.</div>';
+              } else if ($now > $end) {
+                echo '<div class="alert alert-danger">Khuyến mãi đã kết thúc ' . $now->diff($end)->days . ' ngày trước.</div>';
+              } else {
+                echo '<div class="alert alert-success">Khuyến mãi đang diễn ra và sẽ kết thúc trong ' . $now->diff($end)->days . ' ngày nữa.</div>';
+              }
+              ?>
             </div>
           </div>
 
@@ -174,36 +174,36 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Validate end date is after start date
-  const startDateInput = document.getElementById('start_date');
-  const endDateInput = document.getElementById('end_date');
+  document.addEventListener('DOMContentLoaded', function() {
+    // Validate end date is after start date
+    const startDateInput = document.getElementById('start_date');
+    const endDateInput = document.getElementById('end_date');
 
-  const validateDates = function() {
-    if (startDateInput.value && endDateInput.value) {
-      const startDate = new Date(startDateInput.value);
-      const endDate = new Date(endDateInput.value);
+    const validateDates = function() {
+      if (startDateInput.value && endDateInput.value) {
+        const startDate = new Date(startDateInput.value);
+        const endDate = new Date(endDateInput.value);
 
-      if (endDate <= startDate) {
-        endDateInput.setCustomValidity('Ngày kết thúc phải sau ngày bắt đầu');
-      } else {
-        endDateInput.setCustomValidity('');
+        if (endDate <= startDate) {
+          endDateInput.setCustomValidity('Ngày kết thúc phải sau ngày bắt đầu');
+        } else {
+          endDateInput.setCustomValidity('');
+        }
       }
-    }
-  };
+    };
 
-  startDateInput.addEventListener('change', validateDates);
-  endDateInput.addEventListener('change', validateDates);
+    startDateInput.addEventListener('change', validateDates);
+    endDateInput.addEventListener('change', validateDates);
 
-  // Initial validation
-  validateDates();
-});
+    // Initial validation
+    validateDates();
+  });
 </script>
 
 <?php
 // Clear form data from session
 if (isset($_SESSION['form_data'])) {
-    unset($_SESSION['form_data']);
+  unset($_SESSION['form_data']);
 }
 ?>
 
