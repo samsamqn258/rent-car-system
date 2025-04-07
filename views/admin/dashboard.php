@@ -142,7 +142,6 @@
           </div>
         </div>
       </div>
-
       <!-- Revenue Chart -->
       <div class="row mb-4">
         <div class="col-12">
