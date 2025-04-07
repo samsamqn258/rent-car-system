@@ -36,7 +36,11 @@
               <i class="fas fa-file-contract me-2"></i> Quản lý hợp đồng
             </a>
           </li>
-
+          <li class="nav-item">
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/bookings">
+                            <i class="fas fa-users me-2"></i> Quản lý đơn thuê
+                        </a>
+                    </li>
         </ul>
       </div>
     </div>
@@ -132,7 +136,7 @@
               </div>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-              <a href="#" class="text-dark">Xem chi tiết</a>
+            <a href="<?php echo BASE_URL; ?>/admin/bookings" class="text-white">Xem chi tiết</a>
               <i class="fas fa-arrow-right text-dark"></i>
             </div>
           </div>

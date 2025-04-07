@@ -47,8 +47,8 @@ class CarOwnerContract
                     start_date = :start_date,
                     end_date = :end_date,
                     contract_fee = :contract_fee,
-                    status = 'pending_payment', -- Mặc định chưa thanh toán
-                    approved = 0, -- Mặc định chưa duyệt
+                    status = 'paid', -- Mặc định chưa thanh toán
+                    approved = 1, -- Mặc định chưa duyệt
                     created_at = NOW(),
                     updated_at = NOW()";
 

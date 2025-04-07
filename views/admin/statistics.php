@@ -36,6 +36,11 @@
               <i class="fas fa-file-contract me-2"></i> Quản lý hợp đồng
             </a>
           </li>
+          <li class="nav-item">
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/bookings">
+                            <i class="fas fa-users me-2"></i> Quản lý đơn thuê
+                        </a>
+                    </li>
         </ul>
       </div>
     </div>
