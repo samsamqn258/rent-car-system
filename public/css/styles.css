@@ -6,10 +6,6 @@ body {
   color: #242420;
 }
 
-html {
-  font-size: 62.5%;
-}
-
 /* Header & Navigation */
 .navbar {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
