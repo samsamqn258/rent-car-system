@@ -151,13 +151,13 @@ class AdminController
     public function addPromotion()
     {
         // Validate required fields
-        $required_fields = ['code', 'discount_percentage', 'start_date', 'end_date', 'status'];
+        $required_fields = ['code', 'discount_percentage', 'start_date', 'end_date'];
         $validation_errors = $this->validator->validateRequired($_POST, $required_fields);
 
         if (!empty($validation_errors)) {
             $_SESSION['error'] = "Vui lòng sửa các lỗi sau: " . implode(', ', $validation_errors);
             $_SESSION['form_data'] = $_POST;
-            header('Location: ' . BASE_URL . '/admin/promotions/create');
+            header('Location: ' . BASE_URL . '/admin/promotions/add');
             exit;
         }
 
@@ -165,15 +165,7 @@ class AdminController
         if (!is_numeric($_POST['discount_percentage']) || $_POST['discount_percentage'] <= 0 || $_POST['discount_percentage'] > 100) {
             $_SESSION['error'] = "Phần trăm giảm giá phải là số dương và không quá 100%.";
             $_SESSION['form_data'] = $_POST;
-            header('Location: ' . BASE_URL . '/admin/promotions/create');
-            exit;
-        }
-
-        // Validate date range
-        if (strtotime($_POST['start_date']) >= strtotime($_POST['end_date'])) {
-            $_SESSION['error'] = "Ngày kết thúc phải sau ngày bắt đầu.";
-            $_SESSION['form_data'] = $_POST;
-            header('Location: ' . BASE_URL . '/admin/promotions/create');
+            header('Location: ' . BASE_URL . '/admin/promotions/add');
             exit;
         }
 
@@ -183,17 +175,15 @@ class AdminController
         $promotion->discount_percentage = $_POST['discount_percentage'];
         $promotion->start_date = $_POST['start_date'] . ' 00:00:00';
         $promotion->end_date = $_POST['end_date'] . ' 23:59:59';
-        $promotion->status = $_POST['status'];
-        $promotion->created_at = date('Y-m-d H:i:s');
-        $promotion->updated_at = date('Y-m-d H:i:s');
+        $promotion->status = 'active';
 
         if ($promotion->create()) {
-            $_SESSION['success'] = "Thêm mã khuyến mãi mới thành công.";
+            $_SESSION['success'] = "Thêm mã khuyến mãi thành công.";
             header('Location: ' . BASE_URL . '/admin/promotions');
         } else {
-            $_SESSION['error'] = "Không thể thêm mã khuyến mãi mới.";
+            $_SESSION['error'] = "Không thể thêm mã khuyến mãi.";
             $_SESSION['form_data'] = $_POST;
-            header('Location: ' . BASE_URL . '/admin/promotions/create');
+            header('Location: ' . BASE_URL . '/admin/promotions/add');
         }
 
         exit;
@@ -270,7 +260,8 @@ class AdminController
 
         exit;
     }
-    // Delete promotion
+
+    
     public function deletePromotion($promotion_id)
     {
         $promotion = new Promotion($this->db);
