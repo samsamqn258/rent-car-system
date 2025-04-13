@@ -180,33 +180,33 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
             <h5 class="mt-4 mb-3">Hình ảnh hiện tại</h5>
             <div class="row mb-3">
               <?php if (!empty($car_details['images'])): ?>
-                <?php foreach ($car_details['images'] as $index => $image): ?>
-                  <div class="col-md-4 mb-3">
-                    <div class="card">
-                      <img src="<?php echo BASE_URL . '/' . $image['image_path']; ?>" class="card-img-top" alt="Car Image"
-                        style="height: 180px; object-fit: cover;">
-                      <div class="card-body">
-                        <?php if ($image['is_primary']): ?>
-                          <span class="badge text-white mb-2" style="background-color: #5fcf86;">Hình ảnh chính</span>
-                        <?php else: ?>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="primary_image"
-                              id="primary_<?php echo $image['id']; ?>" value="<?php echo $image['id']; ?>">
-                            <label class="form-check-label" for="primary_<?php echo $image['id']; ?>">
-                              Đặt làm hình ảnh chính
-                            </label>
-                          </div>
-                        <?php endif; ?>
-                      </div>
+              <?php foreach ($car_details['images'] as $index => $image): ?>
+              <div class="col-md-4 mb-3">
+                <div class="card">
+                  <img src="<?php echo BASE_URL . '/' . $image['image_path']; ?>" class="card-img-top" alt="Car Image"
+                    style="height: 180px; object-fit: cover;">
+                  <div class="card-body">
+                    <?php if ($image['is_primary']): ?>
+                    <span class="badge text-white mb-2" style="background-color: #5fcf86;">Hình ảnh chính</span>
+                    <?php else: ?>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="primary_image"
+                        id="primary_<?php echo $image['id']; ?>" value="<?php echo $image['id']; ?>">
+                      <label class="form-check-label" for="primary_<?php echo $image['id']; ?>">
+                        Đặt làm hình ảnh chính
+                      </label>
                     </div>
-                  </div>
-                <?php endforeach; ?>
-              <?php else: ?>
-                <div class="col-12">
-                  <div class="alert alert-info mb-0">
-                    <i class="fas fa-info-circle me-2"></i> Không có hình ảnh nào cho xe này.
+                    <?php endif; ?>
                   </div>
                 </div>
+              </div>
+              <?php endforeach; ?>
+              <?php else: ?>
+              <div class="col-12">
+                <div class="alert alert-info mb-0">
+                  <i class="fas fa-info-circle me-2"></i> Không có hình ảnh nào cho xe này.
+                </div>
+              </div>
               <?php endif; ?>
             </div>
 
@@ -261,197 +261,197 @@ require_once __DIR__ . '/../../utils/OpenStreetMap.php';
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Image preview functionality
-    const imageInput = document.getElementById('car_images');
-    const imagePreview = document.getElementById('imagePreview');
+document.addEventListener('DOMContentLoaded', function() {
+  // Image preview functionality
+  const imageInput = document.getElementById('car_images');
+  const imagePreview = document.getElementById('imagePreview');
 
-    imageInput.addEventListener('change', function() {
-      imagePreview.innerHTML = '';
+  imageInput.addEventListener('change', function() {
+    imagePreview.innerHTML = '';
 
-      if (this.files.length > 5) {
-        alert('Bạn chỉ có thể tải lên tối đa 5 hình ảnh.');
+    if (this.files.length > 5) {
+      alert('Bạn chỉ có thể tải lên tối đa 5 hình ảnh.');
+      this.value = '';
+      return;
+    }
+
+    for (let i = 0; i < this.files.length; i++) {
+      const file = this.files[i];
+
+      // Check file size
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Hình ảnh ' + file.name + ' vượt quá kích thước tối đa (5MB).');
         this.value = '';
+        imagePreview.innerHTML = '';
         return;
       }
 
-      for (let i = 0; i < this.files.length; i++) {
-        const file = this.files[i];
-
-        // Check file size
-        if (file.size > 5 * 1024 * 1024) {
-          alert('Hình ảnh ' + file.name + ' vượt quá kích thước tối đa (5MB).');
-          this.value = '';
-          imagePreview.innerHTML = '';
-          return;
-        }
-
-        // Check file type
-        if (!file.type.match('image/(jpeg|jpg|png)')) {
-          alert('Hình ảnh ' + file.name + ' không đúng định dạng. Chỉ hỗ trợ JPG, JPEG và PNG.');
-          this.value = '';
-          imagePreview.innerHTML = '';
-          return;
-        }
-
-        // Create preview
-        const col = document.createElement('div');
-        col.className = 'col-md-4 mb-3';
-
-        const card = document.createElement('div');
-        card.className = 'card h-100';
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          img.className = 'card-img-top';
-          img.style.height = '180px';
-          img.style.objectFit = 'cover';
-          card.appendChild(img);
-
-          const cardBody = document.createElement('div');
-          cardBody.className = 'card-body';
-
-          const fileName = document.createElement('p');
-          fileName.className = 'card-text small text-muted mb-0';
-          fileName.textContent = file.name;
-          cardBody.appendChild(fileName);
-
-          card.appendChild(cardBody);
-        };
-
-        reader.readAsDataURL(file);
-        col.appendChild(card);
-        imagePreview.appendChild(col);
+      // Check file type
+      if (!file.type.match('image/(jpeg|jpg|png)')) {
+        alert('Hình ảnh ' + file.name + ' không đúng định dạng. Chỉ hỗ trợ JPG, JPEG và PNG.');
+        this.value = '';
+        imagePreview.innerHTML = '';
+        return;
       }
-    });
+
+      // Create preview
+      const col = document.createElement('div');
+      col.className = 'col-md-4 mb-3';
+
+      const card = document.createElement('div');
+      card.className = 'card h-100';
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.className = 'card-img-top';
+        img.style.height = '180px';
+        img.style.objectFit = 'cover';
+        card.appendChild(img);
+
+        const cardBody = document.createElement('div');
+        cardBody.className = 'card-body';
+
+        const fileName = document.createElement('p');
+        fileName.className = 'card-text small text-muted mb-0';
+        fileName.textContent = file.name;
+        cardBody.appendChild(fileName);
+
+        card.appendChild(cardBody);
+      };
+
+      reader.readAsDataURL(file);
+      col.appendChild(card);
+      imagePreview.appendChild(col);
+    }
   });
+});
 </script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const provinceSelect = document.getElementById('province');
-    const districtSelect = document.getElementById('district');
-    const wardSelect = document.getElementById('ward');
-    const streetSelect = document.getElementById('street');
-    const addressInput = document.getElementById('address');
+document.addEventListener('DOMContentLoaded', function() {
+  const provinceSelect = document.getElementById('province');
+  const districtSelect = document.getElementById('district');
+  const wardSelect = document.getElementById('ward');
+  const streetSelect = document.getElementById('street');
+  const addressInput = document.getElementById('address');
 
-    // API danh sách đường (Thay thế bằng API thực tế nếu có)
-    const streetsByDistrict = {
-      "760": ["Nguyễn Huệ", "Lê Lợi", "Đồng Khởi"], // Quận 1
-      "765": ["Điện Biên Phủ", "Phan Đăng Lưu", "Xô Viết Nghệ Tĩnh"], // Quận Bình Thạnh
-    };
+  // API danh sách đường (Thay thế bằng API thực tế nếu có)
+  const streetsByDistrict = {
+    "760": ["Nguyễn Huệ", "Lê Lợi", "Đồng Khởi"], // Quận 1
+    "765": ["Điện Biên Phủ", "Phan Đăng Lưu", "Xô Viết Nghệ Tĩnh"], // Quận Bình Thạnh
+  };
 
-    // Fetch danh sách tỉnh/thành phố
-    fetch('https://provinces.open-api.vn/api/?depth=1')
+  // Fetch danh sách tỉnh/thành phố
+  fetch('https://provinces.open-api.vn/api/?depth=1')
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(province => {
+        let option = document.createElement('option');
+        option.value = province.code;
+        option.textContent = province.name;
+        provinceSelect.appendChild(option);
+      });
+    });
+
+  // Khi chọn tỉnh/thành phố
+  provinceSelect.addEventListener('change', function() {
+    let provinceCode = this.value;
+    resetSelect([districtSelect, wardSelect, streetSelect]);
+    updateAddress();
+
+    if (!provinceCode) return;
+
+    fetch(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`)
       .then(response => response.json())
       .then(data => {
-        data.forEach(province => {
+        data.districts.forEach(district => {
           let option = document.createElement('option');
-          option.value = province.code;
-          option.textContent = province.name;
-          provinceSelect.appendChild(option);
+          option.value = district.code;
+          option.textContent = district.name;
+          districtSelect.appendChild(option);
         });
+        districtSelect.disabled = false;
+      });
+  });
+
+  // Khi chọn quận/huyện
+  districtSelect.addEventListener('change', function() {
+    let districtCode = this.value;
+    resetSelect([wardSelect, streetSelect]);
+    updateAddress();
+
+    if (!districtCode) return;
+
+    fetch(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`)
+      .then(response => response.json())
+      .then(data => {
+        data.wards.forEach(ward => {
+          let option = document.createElement('option');
+          option.value = ward.name;
+          option.textContent = ward.name;
+          wardSelect.appendChild(option);
+        });
+        wardSelect.disabled = false;
       });
 
-    // Khi chọn tỉnh/thành phố
-    provinceSelect.addEventListener('change', function() {
-      let provinceCode = this.value;
-      resetSelect([districtSelect, wardSelect, streetSelect]);
-      updateAddress();
-
-      if (!provinceCode) return;
-
-      fetch(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`)
-        .then(response => response.json())
-        .then(data => {
-          data.districts.forEach(district => {
-            let option = document.createElement('option');
-            option.value = district.code;
-            option.textContent = district.name;
-            districtSelect.appendChild(option);
-          });
-          districtSelect.disabled = false;
-        });
-    });
-
-    // Khi chọn quận/huyện
-    districtSelect.addEventListener('change', function() {
-      let districtCode = this.value;
-      resetSelect([wardSelect, streetSelect]);
-      updateAddress();
-
-      if (!districtCode) return;
-
-      fetch(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`)
-        .then(response => response.json())
-        .then(data => {
-          data.wards.forEach(ward => {
-            let option = document.createElement('option');
-            option.value = ward.name;
-            option.textContent = ward.name;
-            wardSelect.appendChild(option);
-          });
-          wardSelect.disabled = false;
-        });
-
-      // Load danh sách đường (Nếu có API thực tế, thay thế đoạn này)
-      if (streetsByDistrict[districtCode]) {
-        streetsByDistrict[districtCode].forEach(street => {
-          let option = document.createElement('option');
-          option.value = street;
-          option.textContent = street;
-          streetSelect.appendChild(option);
-        });
-        streetSelect.disabled = false;
-      }
-    });
-
-    // Khi chọn phường/xã hoặc tên đường
-    wardSelect.addEventListener('change', updateAddress);
-    streetSelect.addEventListener('change', updateAddress);
-
-    // Hàm cập nhật địa chỉ và gọi API để lấy tọa độ
-    function updateAddress() {
-      let province = provinceSelect.options[provinceSelect.selectedIndex]?.text || '';
-      let district = districtSelect.options[districtSelect.selectedIndex]?.text || '';
-      let ward = wardSelect.value || '';
-      let street = streetSelect.value || '';
-
-      let address = [street, ward, district, province].filter(Boolean).join(', ');
-      addressInput.value = address;
-
-      // Cập nhật tọa độ nếu có
-      if (address) {
-        updateLocation(address);
-      }
-    }
-
-    // Hàm gọi API để lấy tọa độ
-    function updateLocation(address) {
-      var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address);
-
-      fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-          if (data.length > 0) {
-            document.getElementById('latitude').value = data[0].lat;
-            document.getElementById('longitude').value = data[0].lon;
-          } else {
-            alert('Không tìm thấy vị trí. Vui lòng nhập lại địa chỉ.');
-          }
-        })
-        .catch(error => console.error('Lỗi:', error));
-    }
-
-    function resetSelect(selectElements) {
-      selectElements.forEach(select => {
-        select.innerHTML = '<option value="">Chọn</option>';
-        select.disabled = true;
+    // Load danh sách đường (Nếu có API thực tế, thay thế đoạn này)
+    if (streetsByDistrict[districtCode]) {
+      streetsByDistrict[districtCode].forEach(street => {
+        let option = document.createElement('option');
+        option.value = street;
+        option.textContent = street;
+        streetSelect.appendChild(option);
       });
+      streetSelect.disabled = false;
     }
   });
+
+  // Khi chọn phường/xã hoặc tên đường
+  wardSelect.addEventListener('change', updateAddress);
+  streetSelect.addEventListener('change', updateAddress);
+
+  // Hàm cập nhật địa chỉ và gọi API để lấy tọa độ
+  function updateAddress() {
+    let province = provinceSelect.options[provinceSelect.selectedIndex]?.text || '';
+    let district = districtSelect.options[districtSelect.selectedIndex]?.text || '';
+    let ward = wardSelect.value || '';
+    let street = streetSelect.value || '';
+
+    let address = [street, ward, district, province].filter(Boolean).join(', ');
+    addressInput.value = address;
+
+    // Cập nhật tọa độ nếu có
+    if (address) {
+      updateLocation(address);
+    }
+  }
+
+  // Hàm gọi API để lấy tọa độ
+  function updateLocation(address) {
+    var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address);
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        if (data.length > 0) {
+          document.getElementById('latitude').value = data[0].lat;
+          document.getElementById('longitude').value = data[0].lon;
+        } else {
+          alert('Không tìm thấy vị trí. Vui lòng nhập lại địa chỉ.');
+        }
+      })
+      .catch(error => console.error('Lỗi:', error));
+  }
+
+  function resetSelect(selectElements) {
+    selectElements.forEach(select => {
+      select.innerHTML = '<option value="">Chọn</option>';
+      select.disabled = true;
+    });
+  }
+});
 </script>
 
 <?php
